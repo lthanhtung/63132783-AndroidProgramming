@@ -25,5 +25,28 @@
         android:paddingTop="20dp"
         app:srcCompat="@mipmap/avatar" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="25dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Họ và tên"
+            android:textSize="20dp"
+            android:textStyle="bold">
+        </TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lê Thanh Tùng"
+            android:textSize="20dp"
+            android:paddingLeft="80dp">
+        </TextView>
+    </LinearLayout>
+    
 
 </LinearLayout>
