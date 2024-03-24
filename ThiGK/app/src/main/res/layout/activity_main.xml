@@ -115,11 +115,9 @@
             android:paddingRight="25dp"
             android:textSize="20dp">
         </TextView>
-        
-
-
-
-
     </LinearLayout>
+
+
+
 
 </LinearLayout>
