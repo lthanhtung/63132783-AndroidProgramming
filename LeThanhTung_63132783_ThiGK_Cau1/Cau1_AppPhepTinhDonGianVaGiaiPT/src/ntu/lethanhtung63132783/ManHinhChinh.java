@@ -21,6 +21,7 @@ public class ManHinhChinh extends JFrame {
 	private JButton btnPhepToanDonGian;
 	private JLabel lblNewLabel;
 	private JButton btnGiaiPT;
+	private JButton btnNewButton;
 	
 	/**
 	 * Create the frame.
@@ -62,6 +63,17 @@ public class ManHinhChinh extends JFrame {
 		btnGiaiPT.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnGiaiPT.setBounds(315, 115, 176, 39);
 		contentPane.add(btnGiaiPT);
+		
+		btnNewButton = new JButton("Đóng App");
+		btnNewButton.setForeground(new Color(64, 0, 0));
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnNewButton.setBounds(315, 271, 231, 52);
+		contentPane.add(btnNewButton);
 	}
 	void AppPhepToanDonGian()
 	{
