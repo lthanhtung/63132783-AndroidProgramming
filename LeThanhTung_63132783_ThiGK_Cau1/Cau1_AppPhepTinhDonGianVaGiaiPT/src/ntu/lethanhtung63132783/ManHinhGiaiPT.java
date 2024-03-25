@@ -29,7 +29,7 @@ public class ManHinhGiaiPT extends JFrame {
 	private JLabel lblNewLabel_LoaiPT;
 	private JLabel lblNewLabel_5;
 	private JTextField textField_Delta;
-	private JLabel lblNewLabel_6;
+	private JLabel lblNewLabel_x1;
 	private JTextField textField_X1;
 	private JLabel lblNewLabel_x2;
 	private JTextField textField_X2;
@@ -111,13 +111,13 @@ public class ManHinhGiaiPT extends JFrame {
 		contentPane.add(textField_Delta);
 		textField_Delta.setColumns(10);
 		
-		lblNewLabel_6 = new JLabel("x1=");
-		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_6.setBounds(20, 282, 45, 13);
-		contentPane.add(lblNewLabel_6);
+		lblNewLabel_x1 = new JLabel("x1=");
+		lblNewLabel_x1.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_x1.setBounds(20, 282, 45, 13);
+		contentPane.add(lblNewLabel_x1);
 		
 		textField_X1 = new JTextField();
-		textField_X1.setBounds(59, 278, 96, 26);
+		textField_X1.setBounds(59, 278, 164, 26);
 		contentPane.add(textField_X1);
 		textField_X1.setColumns(10);
 		
@@ -157,8 +157,23 @@ public class ManHinhGiaiPT extends JFrame {
 		}
 		else
 		{
+			lblNewLabel_LoaiPT.setText("Đây là phương trình bậc 2");
 			double delta =b*b -(4*a*c);
 			textField_Delta.setText(String.valueOf(delta));
+			  if (delta <0)
+	            {
+	                textField_X1.setText("Phương trình vô nghiệm");
+	                lblNewLabel_x1.show(false);
+	                lblNewLabel_x2.show(false);
+	                textField_X2.show(false);
+	            }
+			  if(delta == 0)
+	            {
+	                double Nghiem = -b/(2*a);
+	                textField_X1.setText(String.valueOf(Nghiem));
+	                lblNewLabel_x2.show(false);
+	                textField_X2.show(false);
+	            }
 		}
 		
 	/*	
