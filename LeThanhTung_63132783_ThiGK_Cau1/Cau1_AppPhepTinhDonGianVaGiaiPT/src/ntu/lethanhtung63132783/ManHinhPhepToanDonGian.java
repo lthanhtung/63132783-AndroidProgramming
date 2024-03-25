@@ -36,7 +36,7 @@ public class ManHinhPhepToanDonGian extends JFrame {
 	 * Create the frame.
 	 */
 	public ManHinhPhepToanDonGian() {
-		setTitle("Chương trình phép tính đơn giản");
+		setTitle("Ứng dụng phép tính đơn giản");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 662, 389);
 		contentPane = new JPanel();
@@ -60,7 +60,7 @@ public class ManHinhPhepToanDonGian extends JFrame {
 		btnCong.setBounds(226, 73, 145, 29);
 		contentPane.add(btnCong);
 		
-		lblNewLabel = new JLabel("Chương trình phép toán đơn giản");
+		lblNewLabel = new JLabel("Ứng dụng phép toán đơn giản");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel.setBounds(158, 22, 254, 21);
 		contentPane.add(lblNewLabel);

@@ -38,7 +38,7 @@ public class ManHinhGiaiPT extends JFrame {
 	 * Create the frame.
 	 */
 	public ManHinhGiaiPT() {
-		setTitle("Chương trình giải phương trình");
+		setTitle("Ứng dụng giải phương trình");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 660, 412);
 		contentPane = new JPanel();
@@ -69,7 +69,7 @@ public class ManHinhGiaiPT extends JFrame {
 		btnNewButton_GPT.setBounds(216, 100, 199, 35);
 		contentPane.add(btnNewButton_GPT);
 		
-		lblNewLabel = new JLabel("Chương trình giải phương trình");
+		lblNewLabel = new JLabel("Ứng dụng giải phương trình");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel.setBounds(148, 10, 281, 19);
 		contentPane.add(lblNewLabel);
@@ -112,7 +112,7 @@ public class ManHinhGiaiPT extends JFrame {
 		
 		textField_Delta = new JTextField();
 		textField_Delta.setFont(new Font("Tahoma", Font.BOLD, 15));
-		textField_Delta.setBounds(71, 224, 281, 31);
+		textField_Delta.setBounds(71, 224, 429, 31);
 		contentPane.add(textField_Delta);
 		textField_Delta.setColumns(10);
 		
@@ -176,7 +176,7 @@ public class ManHinhGiaiPT extends JFrame {
 			  if (delta <0)
 	            {
 	                textField_Nghiem1.setText("Phương trình vô nghiệm");
-	                lblNewLabel_Nghiem1.show(false);
+	               
 	                lblNewLabel_Nghiem2.show(false);
 	                textField_Nghiem2.show(false);
 	            }

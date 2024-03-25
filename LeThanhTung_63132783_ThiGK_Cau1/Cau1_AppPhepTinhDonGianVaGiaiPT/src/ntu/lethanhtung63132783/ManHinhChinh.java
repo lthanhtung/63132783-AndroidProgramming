@@ -45,10 +45,10 @@ public class ManHinhChinh extends JFrame {
 		});
 		btnPhepToanDonGian.setBackground(new Color(192, 192, 192));
 		btnPhepToanDonGian.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnPhepToanDonGian.setBounds(45, 115, 165, 39);
+		btnPhepToanDonGian.setBounds(45, 115, 187, 39);
 		contentPane.add(btnPhepToanDonGian);
 		
-		lblNewLabel = new JLabel("Chương trình phép tính đơn giản và giải phương trình");
+		lblNewLabel = new JLabel("Ứng dụng phép tính đơn giản và giải phương trình");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel.setBounds(63, 10, 410, 21);
 		contentPane.add(lblNewLabel);
