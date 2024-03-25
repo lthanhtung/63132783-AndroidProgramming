@@ -26,6 +26,7 @@ public class ManHinhChinh extends JFrame {
 	 * Create the frame.
 	 */
 	public ManHinhChinh() {
+		setTitle("Màn hình chính");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 570, 370);
 		contentPane = new JPanel();

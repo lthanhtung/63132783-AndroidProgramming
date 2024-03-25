@@ -36,6 +36,7 @@ public class ManHinhPhepToanDonGian extends JFrame {
 	 * Create the frame.
 	 */
 	public ManHinhPhepToanDonGian() {
+		setTitle("Chương trình phép tính đơn giản");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 662, 389);
 		contentPane = new JPanel();
@@ -121,6 +122,11 @@ public class ManHinhPhepToanDonGian extends JFrame {
 		textKetQua.setColumns(10);
 		
 		btnTroVe = new JButton("Trở về");
+		btnTroVe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TroVeManHinhChinh();
+			}
+		});
 		btnTroVe.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnTroVe.setBounds(513, 276, 104, 54);
 		contentPane.add(btnTroVe);
@@ -184,14 +190,14 @@ public class ManHinhPhepToanDonGian extends JFrame {
 				double Chia = A / B;
 				String KQ = String.valueOf(Chia);
 				textKetQua.setText(KQ);
-			}
+			}			
 			
-			
-			
-			
-			
-				
-			
+	}
+	void TroVeManHinhChinh()
+	{
+		ManHinhChinh ManHinhChinh = new ManHinhChinh();
+		ManHinhChinh.setVisible(true);
+		this.setVisible(false);
 	}
 	
 	

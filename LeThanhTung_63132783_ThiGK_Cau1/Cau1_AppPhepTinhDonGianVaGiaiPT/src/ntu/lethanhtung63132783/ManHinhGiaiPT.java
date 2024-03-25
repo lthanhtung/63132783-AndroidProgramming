@@ -10,31 +10,35 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ManHinhGiaiPT extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField_Soa;
-	private JTextField textField_1_Sob;
+	private JTextField textField_Sob;
 	private JButton btnNewButton_GPT;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
-	private JTextField textField_2_Soc;
+	private JTextField textField_Soc;
 	private JLabel lblNewLabel_4;
 	private JLabel lblNewLabel_LoaiPT;
 	private JLabel lblNewLabel_5;
-	private JTextField textField;
+	private JTextField textField_Delta;
 	private JLabel lblNewLabel_6;
-	private JTextField textField_1;
-	private JLabel lblNewLabel_7;
-	private JTextField textField_2;
+	private JTextField textField_X1;
+	private JLabel lblNewLabel_x2;
+	private JTextField textField_X2;
+	private JButton btnNewButton;
 	/**
 	 * Create the frame.
 	 */
 	public ManHinhGiaiPT() {
+		setTitle("Chương trình giải phương trình");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 660, 412);
 		contentPane = new JPanel();
@@ -48,14 +52,19 @@ public class ManHinhGiaiPT extends JFrame {
 		contentPane.add(textField_Soa);
 		textField_Soa.setColumns(10);
 		
-		textField_1_Sob = new JTextField();
-		textField_1_Sob.setBounds(272, 59, 96, 19);
-		contentPane.add(textField_1_Sob);
-		textField_1_Sob.setColumns(10);
+		textField_Sob = new JTextField();
+		textField_Sob.setBounds(272, 59, 96, 19);
+		contentPane.add(textField_Sob);
+		textField_Sob.setColumns(10);
 		
 		btnNewButton_GPT = new JButton("Giải Phương Trình");
+		btnNewButton_GPT.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GiaiPT();
+			}
+		});
 		btnNewButton_GPT.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButton_GPT.setBounds(216, 100, 171, 35);
+		btnNewButton_GPT.setBounds(216, 100, 199, 35);
 		contentPane.add(btnNewButton_GPT);
 		
 		lblNewLabel = new JLabel("Chương trình giải phương trình");
@@ -78,17 +87,17 @@ public class ManHinhGiaiPT extends JFrame {
 		lblNewLabel_3.setBounds(446, 60, 45, 13);
 		contentPane.add(lblNewLabel_3);
 		
-		textField_2_Soc = new JTextField();
-		textField_2_Soc.setColumns(10);
-		textField_2_Soc.setBounds(484, 59, 96, 19);
-		contentPane.add(textField_2_Soc);
+		textField_Soc = new JTextField();
+		textField_Soc.setColumns(10);
+		textField_Soc.setBounds(484, 59, 96, 19);
+		contentPane.add(textField_Soc);
 		
 		lblNewLabel_4 = new JLabel("Kết Quả");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel_4.setBounds(20, 153, 73, 35);
 		contentPane.add(lblNewLabel_4);
 		
-		lblNewLabel_LoaiPT = new JLabel("loai");
+		lblNewLabel_LoaiPT = new JLabel("");
 		lblNewLabel_LoaiPT.setBounds(20, 186, 395, 28);
 		contentPane.add(lblNewLabel_LoaiPT);
 		
@@ -97,30 +106,80 @@ public class ManHinhGiaiPT extends JFrame {
 		lblNewLabel_5.setBounds(20, 224, 53, 35);
 		contentPane.add(lblNewLabel_5);
 		
-		textField = new JTextField();
-		textField.setBounds(71, 224, 281, 31);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		textField_Delta = new JTextField();
+		textField_Delta.setBounds(71, 224, 281, 31);
+		contentPane.add(textField_Delta);
+		textField_Delta.setColumns(10);
 		
 		lblNewLabel_6 = new JLabel("x1=");
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel_6.setBounds(20, 282, 45, 13);
 		contentPane.add(lblNewLabel_6);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(59, 278, 96, 26);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		textField_X1 = new JTextField();
+		textField_X1.setBounds(59, 278, 96, 26);
+		contentPane.add(textField_X1);
+		textField_X1.setColumns(10);
 		
-		lblNewLabel_7 = new JLabel("x2=");
-		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_7.setBounds(446, 282, 45, 13);
-		contentPane.add(lblNewLabel_7);
+		lblNewLabel_x2 = new JLabel("x2=");
+		lblNewLabel_x2.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_x2.setBounds(446, 282, 45, 13);
+		contentPane.add(lblNewLabel_x2);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(484, 278, 96, 26);
-		contentPane.add(textField_2);
+		textField_X2 = new JTextField();
+		textField_X2.setColumns(10);
+		textField_X2.setBounds(484, 278, 96, 26);
+		contentPane.add(textField_X2);
+		
+		btnNewButton = new JButton("New button");
+		btnNewButton.setBounds(526, 330, 110, 35);
+		contentPane.add(btnNewButton);
 	}
+	void GiaiPT()
+	{
+		String Seta = textField_Soa.getText();
+		String Setb = textField_Sob.getText();
+		String Setc = textField_Soc.getText();
+		
+		//chuyển kiểu
+		double a = Double.parseDouble(Seta);
+		double b = Double.parseDouble(Setb);
+		double c = Double.parseDouble(Setc);
+		
+		if(a == 0)
+		{
+			lblNewLabel_LoaiPT.setText("Đây là phương trình bậc nhất");
+			textField_Delta.setText("Không thể tính delta vì đây là phương trình bậc nhất");
+			double nghiem = -c/b;
+			textField_X1.setText(String.valueOf(nghiem));
+			lblNewLabel_x2.show(false);
+			textField_X2.show(false);
+		}
+		else
+		{
+			double delta =b*b -(4*a*c);
+			textField_Delta.setText(String.valueOf(delta));
+		}
+		
+	/*	
+		
+		//Xử lý tính toán
+		if(delta <0) { 
+			textKQ.setText("Phương trình vô nghiệm");
+		}
+
+		if(delta == 0) {
+			double x = -b/2*a;
+			 textKQ.setText("x=" + x);
+		}
+		else {
+			double x1 =(-b + Math.sqrt(delta))/(2*a);
+			double x2 =(-b - Math.sqrt(delta))/(2*a);
+			textKQ.setText("x1="+x1 + ";x2=" + x2);
+			
+		}
+		*/
+	}
+	
 
 }
