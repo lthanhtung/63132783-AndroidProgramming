@@ -18,9 +18,9 @@ public class ManHinhChinh extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JButton btnNewButton;
+	private JButton btnPhepToanDonGian;
 	private JLabel lblNewLabel;
-	private JButton btnNewButton_1;
+	private JButton btnGiaiPT;
 	
 	/**
 	 * Create the frame.
@@ -35,28 +35,35 @@ public class ManHinhChinh extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		btnNewButton = new JButton("Phép toán đơn giản");
-		btnNewButton.addActionListener(new ActionListener() {
+		btnPhepToanDonGian = new JButton("Phép toán đơn giản");
+		btnPhepToanDonGian.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				AppPhepToanDonGian();
 			}
 		});
-		btnNewButton.setBackground(new Color(192, 192, 192));
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnNewButton.setBounds(45, 115, 165, 39);
-		contentPane.add(btnNewButton);
+		btnPhepToanDonGian.setBackground(new Color(192, 192, 192));
+		btnPhepToanDonGian.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnPhepToanDonGian.setBounds(45, 115, 165, 39);
+		contentPane.add(btnPhepToanDonGian);
 		
 		lblNewLabel = new JLabel("Chương trình phép tính đơn giản và giải phương trình");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel.setBounds(63, 10, 410, 21);
 		contentPane.add(lblNewLabel);
 		
-		btnNewButton_1 = new JButton("Giải phương trình");
-		btnNewButton_1.setBackground(new Color(0, 255, 255));
-		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnNewButton_1.setBounds(315, 115, 176, 39);
-		contentPane.add(btnNewButton_1);
+		btnGiaiPT = new JButton("Giải phương trình");
+		btnGiaiPT.setBackground(new Color(0, 255, 255));
+		btnGiaiPT.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnGiaiPT.setBounds(315, 115, 176, 39);
+		contentPane.add(btnGiaiPT);
 	}
-	
+	void AppPhepToanDonGian()
+	{
+		boolean ktraSuKien = btnPhepToanDonGian.isEnabled();
+		if(ktraSukien==true)
+		{
+			
+		}
+	}
 	
 }
