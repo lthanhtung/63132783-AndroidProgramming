@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             delta.setText("không thể tính được vì đây là phương trình bậc 1");
             double Nghiem = -Soc/Sob;
             x1.setText(String.valueOf(Nghiem));
-            textViewx2.setText("Không thể tính");
+            textViewx2.setText("Không thể tính vì đây là chương trình bậc nhất");
 
         }
         else
