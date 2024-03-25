@@ -11,23 +11,25 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ManHinhPhepToanDonGian extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JButton btnNewButton;
+	private JTextField textSoa;
+	private JButton btnCong;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
-	private JTextField textField_1;
-	private JButton btnTr;
-	private JButton btnNewButton_2;
-	private JButton btnNewButton_3;
+	private JTextField textSob;
+	private JButton btnTru;
+	private JButton btnNhan;
+	private JButton btnChia;
 	private JLabel lblNewLabel_3;
-	private JTextField textField_2;
-	private JButton btnNewButton_1;
+	private JTextField textKetQua;
+	private JButton btnTroVe;
 
 
 	/**
@@ -42,15 +44,20 @@ public class ManHinhPhepToanDonGian extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(67, 78, 96, 19);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		textSoa = new JTextField();
+		textSoa.setBounds(67, 78, 96, 19);
+		contentPane.add(textSoa);
+		textSoa.setColumns(10);
 		
-		btnNewButton = new JButton("Cộng");
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButton.setBounds(226, 73, 145, 29);
-		contentPane.add(btnNewButton);
+		btnCong = new JButton("Cộng");
+		btnCong.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				XuLyCong();
+			}
+		});
+		btnCong.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnCong.setBounds(226, 73, 145, 29);
+		contentPane.add(btnCong);
 		
 		lblNewLabel = new JLabel("Chương trình phép toán đơn giản");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -67,39 +74,125 @@ public class ManHinhPhepToanDonGian extends JFrame {
 		lblNewLabel_2.setBounds(25, 146, 45, 13);
 		contentPane.add(lblNewLabel_2);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(67, 145, 96, 19);
-		contentPane.add(textField_1);
+		textSob = new JTextField();
+		textSob.setColumns(10);
+		textSob.setBounds(67, 145, 96, 19);
+		contentPane.add(textSob);
 		
-		btnTr = new JButton("Trừ");
-		btnTr.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnTr.setBounds(394, 73, 145, 29);
-		contentPane.add(btnTr);
+		btnTru = new JButton("Trừ");
+		btnTru.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				XuLyTru();
+			}
+		});
+		btnTru.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnTru.setBounds(394, 73, 145, 29);
+		contentPane.add(btnTru);
 		
-		btnNewButton_2 = new JButton("Nhân");
-		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButton_2.setBounds(226, 144, 145, 29);
-		contentPane.add(btnNewButton_2);
+		btnNhan = new JButton("Nhân");
+		btnNhan.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				XuLyNhan();
+			}
+		});
+		btnNhan.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnNhan.setBounds(226, 144, 145, 29);
+		contentPane.add(btnNhan);
 		
-		btnNewButton_3 = new JButton("Chia");
-		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButton_3.setBounds(394, 144, 145, 29);
-		contentPane.add(btnNewButton_3);
+		btnChia = new JButton("Chia");
+		btnChia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				XuLyChia();
+			}
+		});
+		btnChia.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnChia.setBounds(394, 144, 145, 29);
+		contentPane.add(btnChia);
 		
 		lblNewLabel_3 = new JLabel("Kết Quả:");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel_3.setBounds(25, 220, 76, 37);
 		contentPane.add(lblNewLabel_3);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(97, 226, 76, 29);
-		contentPane.add(textField_2);
-		textField_2.setColumns(10);
+		textKetQua = new JTextField();
+		textKetQua.setFont(new Font("Tahoma", Font.BOLD, 15));
+		textKetQua.setBounds(97, 226, 178, 29);
+		contentPane.add(textKetQua);
+		textKetQua.setColumns(10);
 		
-		btnNewButton_1 = new JButton("Trở về");
-		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButton_1.setBounds(513, 276, 104, 54);
-		contentPane.add(btnNewButton_1);
+		btnTroVe = new JButton("Trở về");
+		btnTroVe.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnTroVe.setBounds(513, 276, 104, 54);
+		contentPane.add(btnTroVe);
 	}
+	void XuLyCong()
+	{
+	//Lấy dữ liệu từ điều khiển	
+		String SoA = textSoa.getText();
+		String SoB = textSob.getText();
+		//Chuyển kiểu
+		double A = Double.parseDouble(SoA);
+		double B = Double.parseDouble(SoB);
+		//Tính tổng
+		double Tong = A + B;
+		
+		String KQ = String.valueOf(Tong);
+		textKetQua.setText(KQ);		
+	}
+	void XuLyTru()
+	{
+		//Lấy dữ liệu từ điều khiển	
+				String SoA = textSoa.getText();
+				String SoB = textSob.getText();
+				//Chuyển kiểu
+				double A = Double.parseDouble(SoA);
+				double B = Double.parseDouble(SoB);
+				//Tính Trừ
+				double Tru = A - B;
+				
+				String KQ = String.valueOf(Tru);
+				textKetQua.setText(KQ);	
+	}
+	void XuLyNhan()
+	{
+		//Lấy dữ liệu từ điều khiển	
+			String SoA = textSoa.getText();
+			String SoB = textSob.getText();
+			//Chuyển kiểu
+			double A = Double.parseDouble(SoA);
+			double B = Double.parseDouble(SoB);
+			//Tính Nhan
+			double Nhan = A * B;			
+			String KQ = String.valueOf(Nhan);
+			textKetQua.setText(KQ);
+	}
+	
+	void XuLyChia()
+	{
+		//Lấy dữ liệu từ điều khiển	
+			String SoA = textSoa.getText();
+			String SoB = textSob.getText();
+			//Chuyển kiểu
+			double A = Double.parseDouble(SoA);
+			double B = Double.parseDouble(SoB);
+			if(B == 0)
+			{
+				textKetQua.setText("Không thể chia cho 0");
+			}
+			else {
+				//Tính Chia
+				double Chia = A / B;
+				String KQ = String.valueOf(Chia);
+				textKetQua.setText(KQ);
+			}
+			
+			
+			
+			
+			
+				
+			
+	}
+	
+	
 }
