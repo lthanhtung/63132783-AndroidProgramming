@@ -27,6 +27,7 @@ public class ManHinhPhepToanDonGian extends JFrame {
 	private JButton btnNewButton_3;
 	private JLabel lblNewLabel_3;
 	private JTextField textField_2;
+	private JButton btnNewButton_1;
 
 
 	/**
@@ -95,5 +96,10 @@ public class ManHinhPhepToanDonGian extends JFrame {
 		textField_2.setBounds(97, 226, 76, 29);
 		contentPane.add(textField_2);
 		textField_2.setColumns(10);
+		
+		btnNewButton_1 = new JButton("Trở về");
+		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnNewButton_1.setBounds(513, 276, 104, 54);
+		contentPane.add(btnNewButton_1);
 	}
 }

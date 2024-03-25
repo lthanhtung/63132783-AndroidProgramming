@@ -52,6 +52,11 @@ public class ManHinhChinh extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		btnGiaiPT = new JButton("Giải phương trình");
+		btnGiaiPT.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GiaiPT();
+			}
+		});
 		btnGiaiPT.setBackground(new Color(0, 255, 255));
 		btnGiaiPT.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnGiaiPT.setBounds(315, 115, 176, 39);
@@ -59,11 +64,16 @@ public class ManHinhChinh extends JFrame {
 	}
 	void AppPhepToanDonGian()
 	{
-		boolean ktraSuKien = btnPhepToanDonGian.isEnabled();
-		if(ktraSukien==true)
-		{
-			
-		}
+		ManHinhPhepToanDonGian ManHinhTinhToan = new ManHinhPhepToanDonGian();
+		ManHinhTinhToan.setVisible(true);
+		this.setVisible(false);
 	}
+	void GiaiPT()
+	{
+		ManHinhGiaiPT ManHinhGiaiPT = new ManHinhGiaiPT();
+		ManHinhGiaiPT.setVisible(true);
+		this.setVisible(false);
+	}
+	
 	
 }
