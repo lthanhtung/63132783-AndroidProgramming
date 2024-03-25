@@ -174,10 +174,8 @@ public class ManHinhGiaiPT extends JFrame {
 			textField_Delta.setText(String.valueOf(delta));
 			  if (delta <0)
 	            {
-	                textField_Nghiem1.setText("null (vì phương trình vô nghiệm)");
-	               
-	                textField_Nghiem2.setText("null (vì phương trình  vô nghiệm)");
-	        
+	                textField_Nghiem1.setText("null (vì phương trình vô nghiệm)");	              
+	                textField_Nghiem2.setText("null (vì phương trình  vô nghiệm)");	        
 	            }
 			  if(delta == 0)
 	            {
@@ -188,10 +186,8 @@ public class ManHinhGiaiPT extends JFrame {
 			  else
 	            {
 	                double Nghiem1 = (-b + Math.sqrt(delta))/(2*a);
-	                double Nghiem2 = (-b - Math.sqrt(delta))/(2*a);
-	                
-	                textField_Nghiem1.setText(String.valueOf(Nghiem1));
-	                
+	                double Nghiem2 = (-b - Math.sqrt(delta))/(2*a);	                
+	                textField_Nghiem1.setText(String.valueOf(Nghiem1));	                
 	                textField_Nghiem2.setText(String.valueOf(Nghiem2));
 	            }  
 		}
