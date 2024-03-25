@@ -54,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
             delta.setText("không thể tính được vì đây là phương trình bậc 1");
             double Nghiem = -Soc/Sob;
             x1.setText(String.valueOf(Nghiem));
-            textViewx2.setVisibility(View.GONE);
-            x2.setVisibility(View.GONE);
+            textViewx2.setText("Không thể tính");
+
         }
         else
         {
@@ -64,17 +64,14 @@ public class MainActivity extends AppCompatActivity {
             delta.setText(String.valueOf(Delta));
             if (Delta <0)
             {
-                textViewx1.setText("Phương trình vô nghiệm");
-                x1.setVisibility(View.GONE);
-                x2.setVisibility(View.GONE);
-                textViewx2.setVisibility(View.GONE);
+                x1.setText("Không thể tính vì phương trình vô nghiệm");
+                x2.setText("Không thể tính vì phương trình vô nghiệm");
             }
             if(Delta == 0)
             {
                 double Nghiem = -Sob/(2*Soa);
+                x2.setText("=X1 vì phương trình có nghiệm kép");
                 x1.setText(String.valueOf(Nghiem));
-                textViewx2.setVisibility(View.GONE);
-                x2.setVisibility(View.GONE);
             }
             else
             {
