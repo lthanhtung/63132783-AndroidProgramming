@@ -178,10 +178,10 @@ public class ManHinhGiaiPT extends JFrame {
 	                textField_Nghiem2.setText("null (vì phương trình  vô nghiệm)");	        
 	            }
 			  if(delta == 0)
-	            {
+	            {//Phương trình có nghiệm kép
 	                double Nghiem = -b/(2*a);
 	                textField_Nghiem1.setText(String.valueOf(Nghiem));
-	                textField_Nghiem2.setText("=X1 vì phương trình có nghiệm khép");
+	                textField_Nghiem2.setText("=X1");
 	            }
 			  else
 	            {
