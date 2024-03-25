@@ -165,8 +165,7 @@ public class ManHinhGiaiPT extends JFrame {
 			textField_Delta.setText("Không thể tính delta vì đây là phương trình bậc nhất");
 			double nghiem = -c/b;
 			textField_Nghiem1.setText(String.valueOf(nghiem));
-			lblNewLabel_Nghiem2.show(false);
-			textField_Nghiem2.show(false);
+			textField_Nghiem2.setText("null");
 		}
 		else
 		{
@@ -175,23 +174,24 @@ public class ManHinhGiaiPT extends JFrame {
 			textField_Delta.setText(String.valueOf(delta));
 			  if (delta <0)
 	            {
-	                textField_Nghiem1.setText("Phương trình vô nghiệm");
+	                textField_Nghiem1.setText("null (vì phương trình vô nghiệm)");
 	               
-	                lblNewLabel_Nghiem2.show(false);
-	                textField_Nghiem2.show(false);
+	                textField_Nghiem2.setText("null (vì phương trình  vô nghiệm)");
+	        
 	            }
 			  if(delta == 0)
 	            {
 	                double Nghiem = -b/(2*a);
 	                textField_Nghiem1.setText(String.valueOf(Nghiem));
-	                lblNewLabel_Nghiem2.show(false);
-	                textField_Nghiem2.show(false);
+	                textField_Nghiem2.setText("=X1 vì phương trình có nghiệm khép");
 	            }
 			  else
 	            {
 	                double Nghiem1 = (-b + Math.sqrt(delta))/(2*a);
 	                double Nghiem2 = (-b - Math.sqrt(delta))/(2*a);
+	                
 	                textField_Nghiem1.setText(String.valueOf(Nghiem1));
+	                
 	                textField_Nghiem2.setText(String.valueOf(Nghiem2));
 	            }  
 		}
