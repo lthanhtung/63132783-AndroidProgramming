@@ -29,10 +29,10 @@ public class ManHinhGiaiPT extends JFrame {
 	private JLabel lblNewLabel_LoaiPT;
 	private JLabel lblNewLabel_5;
 	private JTextField textField_Delta;
-	private JLabel lblNewLabel_x1;
-	private JTextField textField_X1;
-	private JLabel lblNewLabel_x2;
-	private JTextField textField_X2;
+	private JLabel lblNewLabel_Nghiem1;
+	private JTextField textField_Nghiem1;
+	private JLabel lblNewLabel_Nghiem2;
+	private JTextField textField_Nghiem2;
 	private JButton btnNewButton;
 	/**
 	 * Create the frame.
@@ -48,11 +48,13 @@ public class ManHinhGiaiPT extends JFrame {
 		contentPane.setLayout(null);
 		
 		textField_Soa = new JTextField();
+		textField_Soa.setFont(new Font("Tahoma", Font.BOLD, 15));
 		textField_Soa.setBounds(59, 59, 96, 19);
 		contentPane.add(textField_Soa);
 		textField_Soa.setColumns(10);
 		
 		textField_Sob = new JTextField();
+		textField_Sob.setFont(new Font("Tahoma", Font.BOLD, 15));
 		textField_Sob.setBounds(272, 59, 96, 19);
 		contentPane.add(textField_Sob);
 		textField_Sob.setColumns(10);
@@ -88,6 +90,7 @@ public class ManHinhGiaiPT extends JFrame {
 		contentPane.add(lblNewLabel_3);
 		
 		textField_Soc = new JTextField();
+		textField_Soc.setFont(new Font("Tahoma", Font.BOLD, 15));
 		textField_Soc.setColumns(10);
 		textField_Soc.setBounds(484, 59, 96, 19);
 		contentPane.add(textField_Soc);
@@ -98,6 +101,7 @@ public class ManHinhGiaiPT extends JFrame {
 		contentPane.add(lblNewLabel_4);
 		
 		lblNewLabel_LoaiPT = new JLabel("");
+		lblNewLabel_LoaiPT.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel_LoaiPT.setBounds(20, 186, 395, 28);
 		contentPane.add(lblNewLabel_LoaiPT);
 		
@@ -107,31 +111,40 @@ public class ManHinhGiaiPT extends JFrame {
 		contentPane.add(lblNewLabel_5);
 		
 		textField_Delta = new JTextField();
+		textField_Delta.setFont(new Font("Tahoma", Font.BOLD, 15));
 		textField_Delta.setBounds(71, 224, 281, 31);
 		contentPane.add(textField_Delta);
 		textField_Delta.setColumns(10);
 		
-		lblNewLabel_x1 = new JLabel("x1=");
-		lblNewLabel_x1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_x1.setBounds(20, 282, 45, 13);
-		contentPane.add(lblNewLabel_x1);
+		lblNewLabel_Nghiem1 = new JLabel("x1=");
+		lblNewLabel_Nghiem1.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_Nghiem1.setBounds(20, 282, 45, 13);
+		contentPane.add(lblNewLabel_Nghiem1);
 		
-		textField_X1 = new JTextField();
-		textField_X1.setBounds(59, 278, 164, 26);
-		contentPane.add(textField_X1);
-		textField_X1.setColumns(10);
+		textField_Nghiem1 = new JTextField();
+		textField_Nghiem1.setFont(new Font("Tahoma", Font.BOLD, 15));
+		textField_Nghiem1.setBounds(59, 278, 164, 26);
+		contentPane.add(textField_Nghiem1);
+		textField_Nghiem1.setColumns(10);
 		
-		lblNewLabel_x2 = new JLabel("x2=");
-		lblNewLabel_x2.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_x2.setBounds(446, 282, 45, 13);
-		contentPane.add(lblNewLabel_x2);
+		lblNewLabel_Nghiem2 = new JLabel("x2=");
+		lblNewLabel_Nghiem2.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_Nghiem2.setBounds(446, 282, 45, 13);
+		contentPane.add(lblNewLabel_Nghiem2);
 		
-		textField_X2 = new JTextField();
-		textField_X2.setColumns(10);
-		textField_X2.setBounds(484, 278, 96, 26);
-		contentPane.add(textField_X2);
+		textField_Nghiem2 = new JTextField();
+		textField_Nghiem2.setFont(new Font("Tahoma", Font.BOLD, 15));
+		textField_Nghiem2.setColumns(10);
+		textField_Nghiem2.setBounds(484, 278, 96, 26);
+		contentPane.add(textField_Nghiem2);
 		
-		btnNewButton = new JButton("New button");
+		btnNewButton = new JButton("Trở về");
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TroVeManHinhChinh();
+			}
+		});
 		btnNewButton.setBounds(526, 330, 110, 35);
 		contentPane.add(btnNewButton);
 	}
@@ -151,9 +164,9 @@ public class ManHinhGiaiPT extends JFrame {
 			lblNewLabel_LoaiPT.setText("Đây là phương trình bậc nhất");
 			textField_Delta.setText("Không thể tính delta vì đây là phương trình bậc nhất");
 			double nghiem = -c/b;
-			textField_X1.setText(String.valueOf(nghiem));
-			lblNewLabel_x2.show(false);
-			textField_X2.show(false);
+			textField_Nghiem1.setText(String.valueOf(nghiem));
+			lblNewLabel_Nghiem2.show(false);
+			textField_Nghiem2.show(false);
 		}
 		else
 		{
@@ -162,38 +175,33 @@ public class ManHinhGiaiPT extends JFrame {
 			textField_Delta.setText(String.valueOf(delta));
 			  if (delta <0)
 	            {
-	                textField_X1.setText("Phương trình vô nghiệm");
-	                lblNewLabel_x1.show(false);
-	                lblNewLabel_x2.show(false);
-	                textField_X2.show(false);
+	                textField_Nghiem1.setText("Phương trình vô nghiệm");
+	                lblNewLabel_Nghiem1.show(false);
+	                lblNewLabel_Nghiem2.show(false);
+	                textField_Nghiem2.show(false);
 	            }
 			  if(delta == 0)
 	            {
 	                double Nghiem = -b/(2*a);
-	                textField_X1.setText(String.valueOf(Nghiem));
-	                lblNewLabel_x2.show(false);
-	                textField_X2.show(false);
+	                textField_Nghiem1.setText(String.valueOf(Nghiem));
+	                lblNewLabel_Nghiem2.show(false);
+	                textField_Nghiem2.show(false);
 	            }
+			  else
+	            {
+	                double Nghiem1 = (-b + Math.sqrt(delta))/(2*a);
+	                double Nghiem2 = (-b - Math.sqrt(delta))/(2*a);
+	                textField_Nghiem1.setText(String.valueOf(Nghiem1));
+	                textField_Nghiem2.setText(String.valueOf(Nghiem2));
+	            }  
 		}
 		
-	/*	
-		
-		//Xử lý tính toán
-		if(delta <0) { 
-			textKQ.setText("Phương trình vô nghiệm");
-		}
-
-		if(delta == 0) {
-			double x = -b/2*a;
-			 textKQ.setText("x=" + x);
-		}
-		else {
-			double x1 =(-b + Math.sqrt(delta))/(2*a);
-			double x2 =(-b - Math.sqrt(delta))/(2*a);
-			textKQ.setText("x1="+x1 + ";x2=" + x2);
-			
-		}
-		*/
+	}
+	void TroVeManHinhChinh()
+	{
+		ManHinhChinh ManHinhChinh = new ManHinhChinh();
+		ManHinhChinh.setVisible(true);
+		this.setVisible(false);
 	}
 	
 
