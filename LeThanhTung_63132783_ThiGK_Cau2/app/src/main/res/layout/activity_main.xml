@@ -76,5 +76,20 @@
             android:layout_height="wrap_content">
         </EditText>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <Button
+            android:id="@+id/BtnTinhNghiem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Giải phương trình"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:onClick="TinhNghiem">
+        </Button>
+    </LinearLayout>
+    
 
 </LinearLayout>
