@@ -1,12 +1,14 @@
 package ntu.lethanhtung_63132783.recyclerview_tutorial;
 
 import android.os.Bundle;
+import android.widget.GridLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,9 +33,15 @@ public class MainActivity extends AppCompatActivity {
         ListRecyclerData = getListRecyclerData();
         // Bước 4
         recyclerViewLandScape = findViewById(R.id.RecyclerViewLand);
-        // Bước 5
-        RecyclerView.LayoutManager layoutLinear = new LinearLayoutManager(this);
-        recyclerViewLandScape.setLayoutManager(layoutLinear);
+        // Bước 5a: Sử dụng Linearlayout
+       // RecyclerView.LayoutManager layoutLinear = new LinearLayoutManager(this);
+       // recyclerViewLandScape.setLayoutManager(layoutLinear);
+       // Bước 5b Sử dụng Horizonallayout
+     //   RecyclerView.LayoutManager layoutLinearHorizonal = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+     //   recyclerViewLandScape.setLayoutManager(layoutLinearHorizonal);
+        //Bước 5c : Sửa dụng GridLayout
+        RecyclerView.LayoutManager LayoutGrid = new GridLayoutManager(this,2);
+         recyclerViewLandScape.setLayoutManager(LayoutGrid);
         // Bước 6
         landScapeAdapter = new LandScapeAdapter(this,ListRecyclerData);
         // Bước 7
