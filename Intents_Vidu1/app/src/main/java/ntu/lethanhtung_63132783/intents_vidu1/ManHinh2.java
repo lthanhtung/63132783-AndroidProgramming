@@ -1,6 +1,8 @@
 package ntu.lethanhtung_63132783.intents_vidu1;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,4 +23,12 @@ public class ManHinh2 extends AppCompatActivity {
             return insets;
         });
     }
+    public void TroLai(View v)
+    {
+        //B1: Tạo 1 đối tượng Intent
+        Intent iManHinhChinh = new Intent(this, MainActivity.class);
+        //B2: Thực hiện trở lại màn hình
+        startActivity(iManHinhChinh);
+    }
+
 }

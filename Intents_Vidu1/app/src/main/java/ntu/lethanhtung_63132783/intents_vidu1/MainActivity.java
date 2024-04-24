@@ -1,6 +1,8 @@
 package ntu.lethanhtung_63132783.intents_vidu1;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,4 +23,12 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
     }
+    //Viết hàm thực hiện chức năng chuyển màn hình
+    public void ChuyenManHinh(View v)
+    {
+        //B1: Tạo 1 đối tượng Intent
+        Intent iManHinh2 = new Intent(this, ManHinh2.class);
+        startActivity(iManHinh2);
+    }
+
 }
