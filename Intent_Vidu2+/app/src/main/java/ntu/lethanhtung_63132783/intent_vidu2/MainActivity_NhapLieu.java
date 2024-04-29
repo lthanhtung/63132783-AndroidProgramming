@@ -24,7 +24,7 @@ public class MainActivity_NhapLieu extends AppCompatActivity {
             return insets;
         });
     }
-    public void Save_Close(View v)
+    public void Save(View v)
     {
         EditText edtHoTen;
         EditText edtNamSinh;
@@ -34,7 +34,20 @@ public class MainActivity_NhapLieu extends AppCompatActivity {
 
         String hoten = edtHoTen.getText().toString();
         int NamSinh = Integer.parseInt(edtNamSinh.getText().toString());
-        Intent MhKqNhapLieu = 
+        Intent MhKqNhapLieu = new Intent();
+        //Đưa  dữ liệu vào intent và gửi về màn hình chính
+        // Dữ liệu đưa vào dưới dạng Key(Name)
+        MhKqNhapLieu.putExtra("Hoten",hoten); //Hoten là key do ta tự đặt, dùng để truy xuất hoặc lấy dữ liệu từ bên nhận
+        MhKqNhapLieu.putExtra("namsinh",NamSinh);
+        //Gửi kết quả về màn hình chính
+        setResult(RESULT_OK,MhKqNhapLieu);
+        //Đóng màn hình nhập
+        finish();
+    }
+    public void Close(View v)
+    {
+        Intent MhChinh = new Intent(this, MainActivity.class);
+        startActivity(MhChinh);
     }
 
 }
