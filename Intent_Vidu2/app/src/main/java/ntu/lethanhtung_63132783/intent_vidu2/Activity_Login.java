@@ -49,6 +49,7 @@ public class Activity_Login extends AppCompatActivity {
             //Hiểu thị kết quả nhận được lên màn hình Home
            iHome.putExtra("UserName",username);
            setResult(RESULT_OK,iHome);
+           startActivity(iHome);
 
         }
         else {
