@@ -17,7 +17,8 @@
         android:text="Màn Hình Đăng Nhập"
         android:textSize="25dp"
         android:textStyle="bold"
-        android:paddingTop="50dp"/>
+        android:paddingTop="50dp">
+    </TextView>
 
 
     <LinearLayout
@@ -34,7 +35,8 @@
             android:layout_weight="1"
             android:text="Username:"
             android:textSize="20dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold">
+        </TextView>
 
         <EditText
             android:id="@+id/edtUserName"
@@ -43,7 +45,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="text"
-            android:text="" />
+            android:text="">
+        </EditText>
     </LinearLayout>
 
     <LinearLayout
@@ -60,7 +63,8 @@
             android:layout_weight="1"
             android:text="Password:"
             android:textSize="20dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold">
+        </TextView>
 
         <EditText
             android:id="@+id/edtPass"
@@ -69,7 +73,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="textPassword"
-            android:text="" />
+            android:text="">
+        </EditText>
     </LinearLayout>
 
     <LinearLayout
@@ -86,7 +91,8 @@
             android:layout_weight="1"
             android:text="UserEmail"
             android:textSize="20dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold">
+        </TextView>
 
         <EditText
             android:id="@+id/edtMail"
@@ -95,7 +101,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="textEmailAddress"
-            android:text="" />
+            android:text=""></EditText>
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -114,8 +120,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+        </Button>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </LinearLayout>
