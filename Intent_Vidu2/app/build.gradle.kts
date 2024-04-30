@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "ntu.lethanhtung_63132783.intent_vidu2"
-    compileSdk = 26
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "ntu.lethanhtung_63132783.intent_vidu2"
@@ -26,7 +26,7 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
