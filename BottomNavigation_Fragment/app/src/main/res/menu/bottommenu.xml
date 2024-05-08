@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/Profile"
+        android:icon="@drawable/ic_person_white"
+        android:title="Profile">
+
+    </item>
+
+    <item
+        android:id="@+id/algorithm"
+        android:icon="@drawable/ic_algorithm"
+        android:title="Alogorithm">
+    </item>
+    <item
+        android:id="@+id/PhuongTrinh"
+        android:icon="@drawable/ic_phuongtrinh"
+        android:title="Phương trình">
+    </item>
+
+</menu>
