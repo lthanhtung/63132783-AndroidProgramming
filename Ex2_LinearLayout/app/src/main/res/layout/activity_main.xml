@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center|top"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/nutso1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="#C87575"
+        android:text="Nút số 1"
+        android:textColor="#2196F3"
+        android:textSize="20dp"/>
+
+<!--  android:gravity="center" : Thuộc tính chỉ vị trí   -->
+    <Button
+        android:id="@+id/nutso2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="#2196F3"
+        android:text="Nút số 2"
+        android:textColor="#96ACC1"
+        android:textSize="30dp"/>
+
+    <Button
+        android:id="@+id/nutso3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="#2196F3"
+        android:text="Nút số 3"
+        android:textColor="@color/black"
+        android:textSize="40dp"/>
+</LinearLayout>
