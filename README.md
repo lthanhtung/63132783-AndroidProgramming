@@ -17,8 +17,8 @@
 _Màn hình Home_  
 ![image](https://github.com/user-attachments/assets/bcc7ae36-d912-4c6d-a33e-40c414004883)  
 _Màn hình listView_    
-![image](https://github.com/user-attachments/assets/228ba484-a50b-4402-bad9-0a525327a85c)
-_Màn hình Auto Complete View_
+![image](https://github.com/user-attachments/assets/228ba484-a50b-4402-bad9-0a525327a85c)  
+_Màn hình Auto Complete View_  
 ![image](https://github.com/user-attachments/assets/494bf296-c9da-42d3-bad4-3d52ff0d488a)  
 
 **Sẽ còn tiếp tục cập nhập bài lên kho**
