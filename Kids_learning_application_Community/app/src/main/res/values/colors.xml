@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="Ellipse_7">#FF000000</color>
+<!--    <color name="white">#FFFFFFFF</color>-->
+    <color name="Ellipse_8">#ECEEF1</color>
+    <color name="Ellipse_6">#E9E9FF</color>
+    <color name="Ellipse_5">#C2DEFF</color>
+    <color name="Ellipse_4">#C5CFD6</color>
+    <color name="Ellipse_3">#AAF1CB</color>
+    <color name="Ellipse_2">#FFE99D</color>
+    <color name="Ellipse_1">#E4C9F9</color>
+
+</resources>
