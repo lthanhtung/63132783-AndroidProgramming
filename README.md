@@ -12,9 +12,14 @@
 - List View  
 **Link bài:** [Luyện tập tổng hợp](https://github.com/lthanhtung/63132783-AndroidProgramming/tree/main/Luyen_Tap_Tong_Hop)  
   Bài có 3 màn hình đăng nhập, Home, ListView và Auto Complete View  
-  _Màn hình Đăng nhập_  
+  _Màn hình Đăng nhập_    
   ![Screenshot 2025-03-23 221340](https://github.com/user-attachments/assets/704aa017-94ab-4362-bfa6-2114bd75a0ab)  
-_Màn hình Home_
+_Màn hình Home_  
+![image](https://github.com/user-attachments/assets/bcc7ae36-d912-4c6d-a33e-40c414004883)  
+_Màn hình listView_    
+![image](https://github.com/user-attachments/assets/228ba484-a50b-4402-bad9-0a525327a85c)  
+
+
 
 
   
