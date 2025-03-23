@@ -1,8 +1,4 @@
 # Tổng hợp các bài tập android studio
-
-
-
-
 ## LoginScreen
 [LoginScreen](https://github.com/lthanhtung/63132783-AndroidProgramming/tree/main/LoginScreen)
-![Image](https://github.com/user-attachments/assets/ac62a10c-27b1-4862-87ba-8358fc2f8073)
+![Screenshot 2025-03-23 220426](https://github.com/user-attachments/assets/23ade9c6-a115-4f88-9014-9f5c5ce7bc84)
