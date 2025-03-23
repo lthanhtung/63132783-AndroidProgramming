@@ -9,7 +9,7 @@
 - Các phương thức lắng nghe sự kiện setonclicklistener
 - Chuyển màn hình Intent
 - Auto Complete Text View
-- List View
+- List View  
 **Link bài:** [Luyện tập tổng hợp](https://github.com/lthanhtung/63132783-AndroidProgramming/tree/main/Luyen_Tap_Tong_Hop)
   Bài có 3 màn hình đăng nhập, Home, ListView và Auto Complete View
   _Màn hình Đăng nhập_
