@@ -13,7 +13,7 @@
 - List View  
   Bài có 4 màn hình đăng nhập, Home, ListView và Auto Complete View  
 ![Screenshot 2025-03-23 221340](https://github.com/user-attachments/assets/704aa017-94ab-4362-bfa6-2114bd75a0ab)
-![image](https://github.com/user-attachments/assets/bcc7ae36-d912-4c6d-a33e-40c414004883)  
+![image](https://github.com/user-attachments/assets/bcc7ae36-d912-4c6d-a33e-40c414004883)
 ![image](https://github.com/user-attachments/assets/228ba484-a50b-4402-bad9-0a525327a85c)
 ![image](https://github.com/user-attachments/assets/494bf296-c9da-42d3-bad4-3d52ff0d488a)  
 
