@@ -38,6 +38,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <Button
+            android:id="@+id/btn_Cau1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="50dp"
@@ -46,6 +47,7 @@
             />
 
         <Button
+            android:id="@+id/btn_Cau2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Câu 2"
@@ -64,6 +66,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <Button
+            android:id="@+id/btn_Cau3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="50dp"
@@ -72,6 +75,7 @@
             />
 
         <Button
+            android:id="@+id/btn_Cau4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Câu 4"
