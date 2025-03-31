@@ -1,6 +1,7 @@
 package com.example.ontap;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,6 +78,10 @@ public class YoutuberAdapter extends RecyclerView.Adapter<YoutuberAdapter.Youtub
             //Toast
             Toast.makeText(v.getContext(), "Bạn vừa nhân"+ YoutuberName, Toast.LENGTH_SHORT).show();
 
+            Intent iChuyenThongTin  = new Intent(v.getContext(),Activity_ChuyenThongTin.class);
+            iChuyenThongTin.putExtra("youtuberName",YoutuberName);
+            iChuyenThongTin.putExtra("youtuberImg",YoutuberImg);
+            v.getContext().startActivity(iChuyenThongTin);
 
         }
     }

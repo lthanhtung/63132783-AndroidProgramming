@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +15,10 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class ActivityCau1 extends AppCompatActivity {
     Button btn_Home,btn_Cau2;
+
+    EditText edtSoa,edtSob;
+    TextView ketqua;
+    Button Cong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,5 +47,26 @@ public class ActivityCau1 extends AppCompatActivity {
                 startActivity(iCau2);
             }
         });
+
+        edtSoa = findViewById(R.id.edtSoa);
+        edtSob = findViewById(R.id.edtSob);
+        ketqua = findViewById(R.id.ketqua);
+        Cong = findViewById(R.id.btnCong);
+
+        Cong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String soa = edtSoa.getText().toString();
+                String sob = edtSob.getText().toString();
+
+                double soA = Double.parseDouble(soa);
+                double soB = Double.parseDouble(sob);
+
+                double kq = soA + soB;
+                ketqua.setText(String.valueOf(kq));
+            }
+        });
+
+
     }
 }
