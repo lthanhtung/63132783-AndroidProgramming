@@ -1,8 +1,12 @@
 # Tổng hợp các bài tập android studio
 ## Kết nối Firebase realtime DataBase  
-**Link bài:** [LoginScreen](https://github.com/lthanhtung/63132783-AndroidProgramming/tree/main/QuanLyChiTieu_TuanHocSo)
+**Link bài:** [LoginScreen](https://github.com/lthanhtung/63132783-AndroidProgramming/tree/main/QuanLyChiTieu_TuanHocSo)  
 **Trên Firebase**
-![screenshot-1744189968596](https://github.com/user-attachments/assets/8eca3b26-7b7c-464a-aaad-94a576474d17)
+![screenshot-1744189968596](https://github.com/user-attachments/assets/8eca3b26-7b7c-464a-aaad-94a576474d17)  
+**Chạy ứng dụng**
+![z6488277498025_ae38901b5d853950ad3bfcfabe14b587](https://github.com/user-attachments/assets/e4b8aa70-fda5-4995-ae86-af55d7d258f9)
+![z6488277459610_b6cef63105f9b8645251cf84c8d38efa](https://github.com/user-attachments/assets/ad9da8a9-f8b0-4a8c-94dd-09ef6cef8851)
+
 
 
 
