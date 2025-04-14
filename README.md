@@ -6,6 +6,8 @@
 **2.Fragment Dynamically sử dụng FrameLayout**  
 **Link bài:** [Fragment Dynamically](https://github.com/lthanhtung/63132783-AndroidProgramming/tree/main/Fragment_Dynamically)  
 ![z6503827711781_26bbf1a884b3f4a8adef5979aeeb2c2a](https://github.com/user-attachments/assets/cc4fd844-e379-4a49-9c77-edc5ef210377)
+**2.Fragment Dynamic: Replacing Fragments Dynamically**  
+**Link bài:** [Fragment Static](https://github.com/lthanhtung/63132783-AndroidProgramming/tree/main/Fragment_Static)  
 
 
 
