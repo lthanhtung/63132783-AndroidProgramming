@@ -4,7 +4,8 @@
 **Link bài:** [Fragment Static](https://github.com/lthanhtung/63132783-AndroidProgramming/tree/main/Fragment_Static)  
 ![z6503169718514_e2d914548ffac876b4cd20dbbf0f3708](https://github.com/user-attachments/assets/df37ce5c-e02b-47c2-9ec0-eff339e66ad3)  
 **2.Fragment Dynamically sử dụng FrameLayout**
-**Link bài:**
+**Link bài:** [Fragment Dynamically](https://github.com/lthanhtung/63132783-AndroidProgramming/tree/main/Fragment_Dynamically)  
+
 
 ## LoginScreen  
 **Link bài:** [LoginScreen](https://github.com/lthanhtung/63132783-AndroidProgramming/tree/main/LoginScreen)  
