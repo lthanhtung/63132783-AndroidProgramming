@@ -9,13 +9,11 @@
 **2.Fragment Dynamic: Replacing Fragments Dynamically**
 _Sử dụng FragmentContainerView_  
 **Link bài:** [Fragment Dynamic: Replacing Fragments Dynamically](https://github.com/lthanhtung/63132783-AndroidProgramming/tree/main/Replacing_Fragments_Dynamically)  
-![z6504003175031_63f3581f823e1923c011364e47da0910](https://github.com/user-attachments/assets/ce8134dd-7908-49d8-bd88-3a3e5e69e9eb)
-![z6504003191839_4c186c6da193b52bf016651c89367a32](https://github.com/user-attachments/assets/42431e7a-b55a-4d15-af33-ffd1f6ab7175)
-![z6504003212755_161e5d7021059d5bc34466ba198878ed](https://github.com/user-attachments/assets/14ba3787-94f4-4d52-9cc6-86845aef4af7)
-![z6504003213557_67a48a87008e8804d872a857f285a7cf](https://github.com/user-attachments/assets/8cf653cd-dcc7-479f-abe1-77586b4c9d37)
-
-
-
+![z6504003175031_63f3581f823e1923c011364e47da0910](https://github.com/user-attachments/assets/76b4c4d7-eb13-4a74-bec4-8dde398d9bcd)
+![z6504003191839_4c186c6da193b52bf016651c89367a32](https://github.com/user-attachments/assets/242a8faa-f440-41a9-b88c-418a90c7486c)
+![z6504003212755_161e5d7021059d5bc34466ba198878ed](https://github.com/user-attachments/assets/86737869-ef5a-422d-9a28-e7439513f823)
+![z6504003213557_67a48a87008e8804d872a857f285a7cf](https://github.com/user-attachments/assets/668583fb-9443-4669-a924-363d150a19b8)  
+## HOÀN THÀNH TUẦN HỌC SỐ
 
 ## LoginScreen  
 **Link bài:** [LoginScreen](https://github.com/lthanhtung/63132783-AndroidProgramming/tree/main/LoginScreen)  
