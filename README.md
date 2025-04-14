@@ -5,6 +5,8 @@
 ![z6503169718514_e2d914548ffac876b4cd20dbbf0f3708](https://github.com/user-attachments/assets/df37ce5c-e02b-47c2-9ec0-eff339e66ad3)  
 **2.Fragment Dynamically sử dụng FrameLayout**  
 **Link bài:** [Fragment Dynamically](https://github.com/lthanhtung/63132783-AndroidProgramming/tree/main/Fragment_Dynamically)  
+![z6503827711781_26bbf1a884b3f4a8adef5979aeeb2c2a](https://github.com/user-attachments/assets/cc4fd844-e379-4a49-9c77-edc5ef210377)
+
 
 
 ## LoginScreen  
