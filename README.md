@@ -1,7 +1,8 @@
 # Tổng hợp các bài tập android studio
 ## TUẦN HỌC SỐ
-**1.Fragment Static**
+**1.Fragment Static**  
 **Link bài:** [Fragment Static](https://github.com/lthanhtung/63132783-AndroidProgramming/tree/main/Fragment_Static)  
+![z6503169718514_e2d914548ffac876b4cd20dbbf0f3708](https://github.com/user-attachments/assets/84ccf630-31c5-466a-a918-2e7a8aa28403)
 
 ## LoginScreen  
 **Link bài:** [LoginScreen](https://github.com/lthanhtung/63132783-AndroidProgramming/tree/main/LoginScreen)  
