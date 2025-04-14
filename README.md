@@ -7,7 +7,7 @@
 **Link bài:** [Fragment Dynamically](https://github.com/lthanhtung/63132783-AndroidProgramming/tree/main/Fragment_Dynamically)  
 ![z6503827711781_26bbf1a884b3f4a8adef5979aeeb2c2a](https://github.com/user-attachments/assets/cc4fd844-e379-4a49-9c77-edc5ef210377)  
 **2.Fragment Dynamic: Replacing Fragments Dynamically**
-_Sử dụng FragmentContainerView_
+_Sử dụng FragmentContainerView_  
 **Link bài:** [Fragment Dynamic: Replacing Fragments Dynamically](https://github.com/lthanhtung/63132783-AndroidProgramming/tree/main/Replacing_Fragments_Dynamically)  
 ![z6504003175031_63f3581f823e1923c011364e47da0910](https://github.com/user-attachments/assets/9e442f94-6b4f-4568-930b-117cd704f94e)
 ![z6504003191839_4c186c6da193b52bf016651c89367a32](https://github.com/user-attachments/assets/d0b7b9e8-c07d-40b4-91b2-85a398f08570)
