@@ -1,5 +1,6 @@
 # Tổng hợp các bài tập android studio
-## TUẦN HỌC SỐ 
+## TUẦN HỌC SỐ
+**1.Fragment**
 
 ## LoginScreen  
 **Link bài:** [LoginScreen](https://github.com/lthanhtung/63132783-AndroidProgramming/tree/main/LoginScreen)  
