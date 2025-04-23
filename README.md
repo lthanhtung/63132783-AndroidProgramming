@@ -3,13 +3,18 @@
 **1.Fragment Static**  
 **Link bài:** [Fragment Static](https://github.com/lthanhtung/63132783-AndroidProgramming/tree/main/Fragment_Static)  
 ![z6503169718514_e2d914548ffac876b4cd20dbbf0f3708](https://github.com/user-attachments/assets/df37ce5c-e02b-47c2-9ec0-eff339e66ad3)  
-**2.Fragment Dynamically sử dụng FrameLayout**  
+**2.Fragment Dynamically**  
+_Sử dụng FrameLayout_  
 **Link bài:** [Fragment Dynamically](https://github.com/lthanhtung/63132783-AndroidProgramming/tree/main/Fragment_Dynamically)  
 ![z6503827711781_26bbf1a884b3f4a8adef5979aeeb2c2a](https://github.com/user-attachments/assets/cc4fd844-e379-4a49-9c77-edc5ef210377)  
 **2.Fragment Dynamic: Replacing Fragments Dynamically**  
-**Link bài:** [Fragment Static](https://github.com/lthanhtung/63132783-AndroidProgramming/tree/main/Fragment_Static)  
-
-
+_Sử dụng FragmentContainerView_  
+**Link bài:** [Fragment Dynamic: Replacing Fragments Dynamically](https://github.com/lthanhtung/63132783-AndroidProgramming/tree/main/Replacing_Fragments_Dynamically)  
+![z6504003175031_63f3581f823e1923c011364e47da0910](https://github.com/user-attachments/assets/76b4c4d7-eb13-4a74-bec4-8dde398d9bcd)
+![z6504003191839_4c186c6da193b52bf016651c89367a32](https://github.com/user-attachments/assets/242a8faa-f440-41a9-b88c-418a90c7486c)
+![z6504003212755_161e5d7021059d5bc34466ba198878ed](https://github.com/user-attachments/assets/86737869-ef5a-422d-9a28-e7439513f823)
+![z6504003213557_67a48a87008e8804d872a857f285a7cf](https://github.com/user-attachments/assets/668583fb-9443-4669-a924-363d150a19b8)  
+## HOÀN THÀNH TUẦN HỌC SỐ
 
 ## LoginScreen  
 **Link bài:** [LoginScreen](https://github.com/lthanhtung/63132783-AndroidProgramming/tree/main/LoginScreen)  
