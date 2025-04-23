@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/Cau1"
+        android:icon="@android:drawable/btn_star_big_on"
+        android:title="Câu 1" />
+    <item
+        android:id="@+id/Cau2"
+        android:icon="@android:drawable/btn_star_big_off"
+        android:title="Câu 2" />
+    <item
+        android:id="@+id/Cau3"
+        android:icon="@android:drawable/btn_star"
+        android:title="Câu 3" />
+
+</menu>
