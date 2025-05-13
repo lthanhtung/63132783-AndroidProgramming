@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "290291614223",
+    "project_id": "messenger-app-project-4de8f",
+    "storage_bucket": "messenger-app-project-4de8f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:290291614223:android:0239cce4954f930d0ad97a",
+        "android_client_info": {
+          "package_name": "vn.edu.lethanhtung.messengappproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAozaOY0mqDaraB79LDL5V7mUmUkBHdw_o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

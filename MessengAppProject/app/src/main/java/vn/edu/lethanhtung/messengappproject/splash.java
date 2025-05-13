@@ -17,7 +17,7 @@ public class splash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_splash);
-       
+
 
         //Phần backend
         //Thiết lập bộ đếm thời gian trong 1 khoảng thời gian sau đó đóng màn hình và chuyển sang màn hình khác
