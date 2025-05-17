@@ -10,7 +10,7 @@
 
 <!--Tạo Logo ảnh tròn-->
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profilerg"
+        android:id="@+id/profilerg0"
         android:layout_width="151dp"
         android:layout_height="130dp"
         android:src="@drawable/photocamera"
@@ -126,7 +126,7 @@
         app:layout_constraintVertical_bias="0.777" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/rgpassword"
         android:layout_width="260dp"
         android:layout_height="52dp"
         android:ems="10"
@@ -143,7 +143,7 @@
         app:layout_constraintVertical_bias="0.675" />
 
     <EditText
-        android:id="@+id/editTextTextPassword2"
+        android:id="@+id/rgrepassword"
         android:layout_width="260dp"
         android:layout_height="52dp"
         android:ems="10"
@@ -160,7 +160,7 @@
         app:layout_constraintVertical_bias="0.777" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/signupbutton"
         android:layout_width="@dimen/_250sdp"
         android:layout_height="@dimen/_45sdp"
         android:backgroundTint="@color/black"
@@ -175,7 +175,7 @@
         app:layout_constraintVertical_bias="0.892" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/loginbut"
         android:layout_width="@dimen/_124sdp"
         android:layout_height="24dp"
         android:gravity="center"
@@ -189,7 +189,7 @@
         app:layout_constraintVertical_bias="0.958" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/rgusername"
         android:layout_width="259dp"
         android:layout_height="52dp"
         android:ems="10"
@@ -206,7 +206,7 @@
         app:layout_constraintVertical_bias="0.46" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress"
+        android:id="@+id/rgemail"
         android:layout_width="259dp"
         android:layout_height="55dp"
         android:ems="10"
