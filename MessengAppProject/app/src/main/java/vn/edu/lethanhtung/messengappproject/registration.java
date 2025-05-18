@@ -1,5 +1,6 @@
 package vn.edu.lethanhtung.messengappproject;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -40,6 +41,7 @@ public class registration extends AppCompatActivity {
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"; //Mẫu Email quy định cho trường Email
     FirebaseDatabase database; // Kết nối đến csdl Firebase
     FirebaseStorage storage;
+    ProgressDialog progressDialog;
 
 
 
@@ -48,6 +50,10 @@ public class registration extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_registration);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Establishing The Account");
+        progressDialog.setCancelable(false);
 
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
@@ -84,12 +90,16 @@ public class registration extends AppCompatActivity {
                 // Xử lý ràng buộc các trường không được để trống
                 if (TextUtils.isEmpty(namee) || TextUtils.isEmpty(emaill) ||
                         TextUtils.isEmpty(Password)  || TextUtils.isEmpty(cPassword)){
+                    progressDialog.dismiss();
                     Toast.makeText(registration.this, "Please Enter Valid Information", Toast.LENGTH_SHORT).show();
                 } else if (!emaill.matches(emailPattern)) {
+                    progressDialog.dismiss();
                     rg_email.setError("Type a Valid Email Here");
                 } else if (Password.length() <6 ) {
+                    progressDialog.dismiss();
                     rg_password.setError("Password Must Be 6 Characters Or More");
                 } else if (!Password.equals(cPassword)) {
+                    progressDialog.dismiss();
                     rg_password.setError("The Password Doesn't Match");
                 }else {
                     //Nếu Thỏa Hết thì sẽ tiến hành xử lý để lưu vào firebase
@@ -115,6 +125,7 @@ public class registration extends AppCompatActivity {
                                                             @Override
                                                             public void onComplete(@NonNull Task<Void> task) {
                                                                 if (task.isSuccessful()){
+                                                                    progressDialog.show();
                                                                     Intent intent = new Intent(registration.this, MainActivity.class);
                                                                     startActivity(intent);
                                                                     finish();
@@ -137,6 +148,7 @@ public class registration extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()){
+                                                progressDialog.show();
                                                 Intent intent = new Intent(registration.this, MainActivity.class);
                                                 startActivity(intent);
                                                 finish();
