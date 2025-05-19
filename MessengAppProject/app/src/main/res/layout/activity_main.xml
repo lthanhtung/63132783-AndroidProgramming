@@ -46,6 +46,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mainUserRecyclerView"
         android:layout_width="376dp"
         android:layout_height="380dp"
         android:layout_below="@id/toolBar"
@@ -56,7 +57,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="167dp"
+        android:layout_marginTop="@dimen/_140sdp"
         android:layout_marginEnd="19dp"
         android:layout_marginRight="19dp"
         android:layout_marginBottom="104dp" />

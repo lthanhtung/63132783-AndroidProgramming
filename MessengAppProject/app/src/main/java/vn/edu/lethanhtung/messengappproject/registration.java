@@ -120,7 +120,7 @@ public class registration extends AppCompatActivity {
                                                     @Override
                                                     public void onSuccess(Uri uri) {
                                                         imageuri = uri.toString();
-                                                        Users users = new Users(id,namee,emaill,Password,cPassword,imageuri);
+                                                        Users users = new Users(id,namee,emaill,Password,imageuri,status);
                                                         reference.setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                             @Override
                                                             public void onComplete(@NonNull Task<Void> task) {
