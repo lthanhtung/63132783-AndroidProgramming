@@ -82,11 +82,12 @@ public class MainActivity extends AppCompatActivity {
                         FirebaseAuth.getInstance().signOut();
                         Intent intent = new Intent(MainActivity.this, login.class);
                         startActivity(intent);
+                        finish();
                     }
                 });
                 no.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) { 
+                    public void onClick(View v) {
                         dialog.dismiss();// đóng hộp thoại
                     }
                 });

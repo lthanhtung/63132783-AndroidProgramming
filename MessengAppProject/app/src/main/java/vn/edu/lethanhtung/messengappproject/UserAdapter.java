@@ -1,6 +1,7 @@
 package vn.edu.lethanhtung.messengappproject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,18 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.viewholder> {
         holder.userstatus.setText(users.status);
         //Lấy ảnh
         Picasso.get().load(users.profilepic).into(holder.userimg);
+        //Chuyển hướng đến màn hình chat
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mainActivity, chatWin.class);
+                intent.putExtra("name",users.getUserName());
+                intent.putExtra("reciverImg",users.getProfilepic());
+                intent.putExtra("uid",users.getUserId());
+                mainActivity.startActivity(intent);
+
+            }
+        });
 
     }
 
