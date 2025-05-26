@@ -150,8 +150,6 @@ public class chatWin extends AppCompatActivity {
                         });
             }
         });
-
-
-
+        
     }
 }

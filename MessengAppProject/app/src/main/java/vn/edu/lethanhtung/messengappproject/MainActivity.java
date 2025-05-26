@@ -3,6 +3,7 @@ package vn.edu.lethanhtung.messengappproject;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase database;
     ArrayList<Users> usersArrayList;
     ImageView imglogout;
+    ImageView cambut, setbut;
 
 
     @Override
@@ -44,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
 
+        cambut = findViewById(R.id.cambut);
+        setbut = findViewById(R.id.settingBut);
+
         DatabaseReference reference  = database.getReference().child("user");
         //Lấy danh sách user
         usersArrayList = new ArrayList<>();
@@ -51,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // Xóa danh sách cũ trước khi thêm mới
+                usersArrayList.clear();
                 for (DataSnapshot dataSnapshot:snapshot.getChildren())
                 {
                     Users users = dataSnapshot.getValue(Users.class);
@@ -100,6 +107,22 @@ public class MainActivity extends AppCompatActivity {
         adapter = new UserAdapter(MainActivity.this,usersArrayList);
         mainUserRecyclerView.setAdapter(adapter);
 
+        setbut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, setting.class);
+                startActivity(intent);
+            }
+        });
+
+        cambut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Mỏ camera
+                Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent,10);
+            }
+        });
 
 
         if (auth.getCurrentUser() == null){
