@@ -7,13 +7,11 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SearchView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,9 +30,10 @@ public class MainActivity extends AppCompatActivity {
     UserAdapter adapter;
     FirebaseDatabase database;
     ArrayList<Users> usersArrayList;
+    ArrayList<Users> filteredList;
     ImageView imglogout;
     ImageView cambut, setbut;
-
+    SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,95 +41,98 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        //Kết nối csdl
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
 
         cambut = findViewById(R.id.cambut);
         setbut = findViewById(R.id.settingBut);
+        searchView = findViewById(R.id.searchView);
+        searchView.setQueryHint("Tìm theo mã khách hàng"); // Gợi ý tìm kiếm
 
-        DatabaseReference reference  = database.getReference().child("user");
-        //Lấy danh sách user
         usersArrayList = new ArrayList<>();
+        filteredList = new ArrayList<>();
+
+        DatabaseReference reference = database.getReference().child("user");
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                // Xóa danh sách cũ trước khi thêm mới
                 usersArrayList.clear();
-                for (DataSnapshot dataSnapshot:snapshot.getChildren())
-                {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Users users = dataSnapshot.getValue(Users.class);
                     usersArrayList.add(users);
                 }
-                adapter.notifyDataSetChanged();
+                adapter.setFilteredList(usersArrayList); // Hiển thị danh sách đầy đủ
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
-        imglogout = findViewById(R.id.logoutimg);
 
+        imglogout = findViewById(R.id.logoutimg);
         imglogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Tạo hộp thoại thông báo logout
-                Dialog dialog = new Dialog(MainActivity.this,R.style.dialoge);
+                Dialog dialog = new Dialog(MainActivity.this, R.style.dialoge);
                 dialog.setContentView(R.layout.dialog_layout);
-                Button no,yes;
-                yes = dialog.findViewById(R.id.yesbnt);
-                no = dialog.findViewById(R.id.nobnt);
+                Button yes = dialog.findViewById(R.id.yesbnt);
+                Button no = dialog.findViewById(R.id.nobnt);
 
-                yes.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        FirebaseAuth.getInstance().signOut();
-                        Intent intent = new Intent(MainActivity.this, login.class);
-                        startActivity(intent);
-                        finish();
-                    }
+                yes.setOnClickListener(view -> {
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(MainActivity.this, login.class));
+                    finish();
                 });
-                no.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();// đóng hộp thoại
-                    }
-                });
+
+                no.setOnClickListener(view -> dialog.dismiss());
+
                 dialog.show();
             }
         });
 
         mainUserRecyclerView = findViewById(R.id.mainUserRecyclerView);
         mainUserRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new UserAdapter(MainActivity.this,usersArrayList);
+        adapter = new UserAdapter(MainActivity.this, usersArrayList);
         mainUserRecyclerView.setAdapter(adapter);
 
-        setbut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, setting.class);
-                startActivity(intent);
-            }
+        setbut.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, setting.class);
+            startActivity(intent);
         });
 
-        cambut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Mỏ camera
-                Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent,10);
-            }
+        cambut.setOnClickListener(view -> {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, 10);
         });
 
-
-        if (auth.getCurrentUser() == null){
+        if (auth.getCurrentUser() == null) {
             Intent intent = new Intent(MainActivity.this, login.class);
             startActivity(intent);
-
         }
 
+        // Lọc danh sách theo customUserID
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false; // Không xử lý khi submit
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterListByCustomId(newText);
+                return true;
+            }
+        });
+    }
+
+    private void filterListByCustomId(String inputText) {
+        filteredList.clear();
+        for (Users user : usersArrayList) {
+            if (user.getCustomUserID() != null &&
+                    user.getCustomUserID().toLowerCase().contains(inputText.toLowerCase())) {
+                filteredList.add(user);
+            }
+        }
+        adapter.setFilteredList(filteredList);
     }
 }

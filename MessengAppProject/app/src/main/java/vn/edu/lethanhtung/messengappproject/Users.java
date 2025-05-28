@@ -1,25 +1,44 @@
 package vn.edu.lethanhtung.messengappproject;
 
 public class Users {
-    //Khai báo các thuộc tính của User --> Lớp csdl và được lưu trên Firebase
+    String profilepic;
+    String mail;
+    String userName;
+    String password;
+    String userId;
+    String customUserID;
+    String lastMessage;
+    String status;
 
+    public Users() {}
 
-    String profilepic;//Ảnh đại diện
-    String mail; // Email
-    String userName; // Tên người dùng
-    String password; // Mật Khẩu
-    String userId;// Id người dùng
-    String lastMessage; // Tin nhắn cuối cùng
-    String status;// Trạng thái
-    public Users (){ }
-
-    public Users(String userId, String userName, String maill, String password, String profilepic,String status){
+    public Users(String userId, String customUserID, String userName, String mail, String password, String profilepic, String status) {
         this.userId = userId;
+        this.customUserID = customUserID;
         this.userName = userName;
-        this.mail = maill;
+        this.mail = mail;
         this.password = password;
         this.profilepic = profilepic;
         this.status = status;
+    }
+
+    // Constructor không có customUserID
+    public Users(String userId, String userName, String mail, String password, String profilepic, String status) {
+        this.userId = userId;
+        this.userName = userName;
+        this.mail = mail;
+        this.password = password;
+        this.profilepic = profilepic;
+        this.status = status;
+    }
+
+
+    public String getCustomUserID() {
+        return customUserID;
+    }
+
+    public void setCustomUserID(String customUserID) {
+        this.customUserID = customUserID;
     }
 
     public String getUserId() {

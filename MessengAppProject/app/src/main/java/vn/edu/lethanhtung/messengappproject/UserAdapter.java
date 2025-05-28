@@ -1,6 +1,5 @@
 package vn.edu.lethanhtung.messengappproject;
 
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +19,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.viewholder> {
 
     MainActivity mainActivity;
     ArrayList<Users> usersArrayList;
+
     public UserAdapter(MainActivity mainActivity, ArrayList<Users> usersArrayList) {
         this.mainActivity = mainActivity;
         this.usersArrayList = usersArrayList;
@@ -28,7 +28,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.viewholder> {
     @NonNull
     @Override
     public UserAdapter.viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mainActivity).inflate(R.layout.user_item,parent,false);
+        View view = LayoutInflater.from(mainActivity).inflate(R.layout.user_item, parent, false);
         return new viewholder(view);
     }
 
@@ -37,21 +37,15 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.viewholder> {
         Users users = usersArrayList.get(position);
         holder.username.setText(users.userName);
         holder.userstatus.setText(users.status);
-        //Lấy ảnh
         Picasso.get().load(users.profilepic).into(holder.userimg);
-        //Chuyển hướng đến màn hình chat
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mainActivity, chatWin.class);
-                intent.putExtra("nameeee",users.getUserName());
-                intent.putExtra("reciverImg",users.getProfilepic());
-                intent.putExtra("uid",users.getUserId());
-                mainActivity.startActivity(intent);
 
-            }
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(mainActivity, chatWin.class);
+            intent.putExtra("nameeee", users.getUserName());
+            intent.putExtra("reciverImg", users.getProfilepic());
+            intent.putExtra("uid", users.getUserId());
+            mainActivity.startActivity(intent);
         });
-
     }
 
     @Override
@@ -59,11 +53,17 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.viewholder> {
         return usersArrayList.size();
     }
 
+    public void setFilteredList(ArrayList<Users> filteredList) {
+        this.usersArrayList = filteredList;
+        notifyDataSetChanged();
+    }
+
     public class viewholder extends RecyclerView.ViewHolder {
 
         CircleImageView userimg;
         TextView username;
         TextView userstatus;
+
         public viewholder(@NonNull View itemView) {
             super(itemView);
             userimg = itemView.findViewById(R.id.userimg);

@@ -1,6 +1,8 @@
 package vn.edu.lethanhtung.messengappproject;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -28,6 +30,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
+
 public class setting extends AppCompatActivity {
 
     ImageView setprofile;
@@ -36,7 +40,7 @@ public class setting extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseDatabase database;
     FirebaseStorage storage;
-    String email, password, currentProfilePicUrl; // Thêm biến để lưu URL ảnh hiện tại
+    String email, password, currentProfilePicUrl;
     Uri setImageUri;
 
     @Override
@@ -56,18 +60,23 @@ public class setting extends AppCompatActivity {
         DatabaseReference reference = database.getReference().child("user").child(auth.getUid());
         StorageReference storageReference = storage.getReference().child("upload").child(auth.getUid());
 
-        // Lấy dữ liệu từ Firebase và lưu URL ảnh hiện tại
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 email = snapshot.child("mail").getValue().toString();
                 password = snapshot.child("password").getValue().toString();
                 String name = snapshot.child("userName").getValue().toString();
-                currentProfilePicUrl = snapshot.child("profilepic").getValue().toString(); // Lưu URL ảnh
+                currentProfilePicUrl = snapshot.child("profilepic").getValue().toString();
                 String status = snapshot.child("status").getValue().toString();
                 setname.setText(name);
                 setstatus.setText(status);
-                Picasso.get().load(currentProfilePicUrl).into(setprofile);
+                Picasso.get()
+                        .load(currentProfilePicUrl)
+                        .placeholder(R.drawable.man)
+                        .error(R.drawable.man)
+                        .resize(100, 100)
+                        .centerCrop()
+                        .into(setprofile);
             }
 
             @Override
@@ -93,38 +102,44 @@ public class setting extends AppCompatActivity {
                 String status = setstatus.getText().toString();
 
                 if (setImageUri != null) {
-                    // Nếu có ảnh mới, tải ảnh lên Firebase Storage
-                    storageReference.putFile(setImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                            if (task.isSuccessful()) {
-                                storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                    @Override
-                                    public void onSuccess(Uri uri) {
-                                        String finalImageUri = uri.toString();
-                                        Users users = new Users(auth.getUid(), name, email, password, finalImageUri, status);
-                                        reference.setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
-                                                    Toast.makeText(setting.this, "Dữ liệu đã được lưu", Toast.LENGTH_SHORT).show();
-                                                    Intent intent = new Intent(setting.this, MainActivity.class);
-                                                    startActivity(intent);
-                                                    finish();
-                                                } else {
-                                                    Toast.makeText(setting.this, "Có lỗi xảy ra...", Toast.LENGTH_SHORT).show();
+                    try {
+                        Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(setImageUri));
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos); // Nén ảnh
+                        byte[] dataByte = baos.toByteArray();
+                        storageReference.putBytes(dataByte).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            String finalImageUri = uri.toString();
+                                            Users users = new Users(auth.getUid(), name, email, password, finalImageUri, status);
+                                            reference.setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Toast.makeText(setting.this, "Dữ liệu đã được lưu", Toast.LENGTH_SHORT).show();
+                                                        Intent intent = new Intent(setting.this, MainActivity.class);
+                                                        startActivity(intent);
+                                                        finish();
+                                                    } else {
+                                                        Toast.makeText(setting.this, "Có lỗi xảy ra...", Toast.LENGTH_SHORT).show();
+                                                    }
                                                 }
-                                            }
-                                        });
-                                    }
-                                });
-                            } else {
-                                Toast.makeText(setting.this, "Tải ảnh lên thất bại", Toast.LENGTH_SHORT).show();
+                                            });
+                                        }
+                                    });
+                                } else {
+                                    Toast.makeText(setting.this, "Tải ảnh lên thất bại", Toast.LENGTH_SHORT).show();
+                                }
                             }
-                        }
-                    });
+                        });
+                    } catch (Exception e) {
+                        Toast.makeText(setting.this, "Lỗi khi nén ảnh", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    // Nếu không có ảnh mới, sử dụng URL ảnh hiện tại
                     Users users = new Users(auth.getUid(), name, email, password, currentProfilePicUrl, status);
                     reference.setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -149,7 +164,12 @@ public class setting extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 10 && resultCode == RESULT_OK && data != null) {
             setImageUri = data.getData();
-            setprofile.setImageURI(setImageUri);
+            String mimeType = getContentResolver().getType(setImageUri);
+            if (mimeType != null && (mimeType.startsWith("image/jpeg") || mimeType.startsWith("image/png"))) {
+                setprofile.setImageURI(setImageUri);
+            } else {
+                Toast.makeText(setting.this, "Please select a JPEG or PNG image", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
