@@ -38,14 +38,28 @@
             android:layout_height="@dimen/_28sdp"
             android:layout_gravity="center"
             android:background="@drawable/logout"
-            android:layout_marginRight="@dimen/_10sdp"/>
+            android:layout_marginRight="@dimen/_10sdp" />
     </LinearLayout>
+
+    <!-- TextView hiển thị customUserID -->
+
+    <TextView
+        android:id="@+id/currentCustomIdTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolBar"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="7dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="ID người dùng: ..."
+        android:textColor="@color/black"
+        android:textSize="16sp" />
 
     <SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolBar"
+        android:layout_below="@id/currentCustomIdTextView"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
