@@ -4,14 +4,16 @@ public class msgModelclass {
     String message;
     String senderid;
     long timeStamp;
+    String imageUrl;
 
     public msgModelclass() {
     }
 
-    public msgModelclass(String message, String senderid, long timeStamp) {
+    public msgModelclass(String message, String senderid, long timeStamp, String imageUrl) {
         this.message = message;
         this.senderid = senderid;
         this.timeStamp = timeStamp;
+        this.imageUrl = imageUrl;
     }
 
     public String getMessage() {
@@ -36,5 +38,13 @@ public class msgModelclass {
 
     public void setTimeStamp(long timeStamp) {
         this.timeStamp = timeStamp;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

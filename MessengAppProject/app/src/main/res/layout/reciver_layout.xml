@@ -19,17 +19,42 @@
         android:id="@+id/recivertextset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/pro"
         android:layout_marginStart="@dimen/_1sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginEnd="@dimen/_5sdp"
-        android:layout_marginBottom="@dimen/_5sdp"
-        android:layout_toRightOf="@id/pro"
         android:background="@drawable/reciver_shape"
         android:fontFamily="@font/poppins_regular"
         android:padding="@dimen/_7sdp"
         android:text="Lê Công chánh"
         android:textColor="@color/black"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/reciver_image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_toRightOf="@id/pro"
+        android:layout_marginStart="@dimen/_1sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:visibility="gone"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/reciver_timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recivertextset"
+        android:layout_toRightOf="@id/pro"
+        android:layout_marginStart="@dimen/_1sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/poppins_regular"
+        android:text="12:00" />
 
 </RelativeLayout>

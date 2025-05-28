@@ -8,18 +8,43 @@
         android:id="@+id/msgsendertyp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
         android:layout_marginStart="@dimen/_5sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginEnd="@dimen/_1sdp"
-        android:layout_marginBottom="@dimen/_5sdp"
-        android:layout_alignParentRight="true"
-        android:text="Lê Thanh Tùng"
         android:background="@drawable/sender_shape"
         android:fontFamily="@font/poppins_regular"
         android:padding="@dimen/_7sdp"
+        android:text="Lê Thanh Tùng"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/sender_image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_1sdp"
+        android:visibility="gone"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/sender_timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/msgsendertyp"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:layout_marginEnd="@dimen/_1sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/poppins_regular"
+        android:text="12:00" />
 
 </RelativeLayout>

@@ -1,9 +1,11 @@
 package vn.edu.lethanhtung.messengappproject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,7 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -25,7 +30,7 @@ public class messagesAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         this.context = context;
         this.messagesAdpterArrayList = messagesAdpterArrayList;
         this.reciverImageUrl = reciverImageUrl;
-        setHasStableIds(true); // Cải thiện hiệu suất cuộn
+        setHasStableIds(true);
     }
 
     int ITEM_SEND = 1;
@@ -46,20 +51,66 @@ public class messagesAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         msgModelclass messages = messagesAdpterArrayList.get(position);
+        String time = formatTimestamp(messages.getTimeStamp());
+
         if (holder instanceof senderViewHolder) {
             senderViewHolder viewHolder = (senderViewHolder) holder;
-            viewHolder.msgtxt.setText(messages.getMessage());
-        } else {
-            reciverViewHolder viewHolder = (reciverViewHolder) holder;
-            viewHolder.msgtxt.setText(messages.getMessage());
-            if (reciverImageUrl != null) {
+            viewHolder.timestamp.setText(time);
+            if (messages.getImageUrl() != null) {
+                viewHolder.msgtxt.setVisibility(View.GONE);
+                viewHolder.imageView.setVisibility(View.VISIBLE);
                 Picasso.get()
-                        .load(reciverImageUrl)
+                        .load(messages.getImageUrl())
                         .placeholder(R.drawable.man)
                         .error(R.drawable.man)
-                        .resize(100, 100) // Resize để tối ưu
-                        .centerCrop()
-                        .into(viewHolder.circleImageView);
+                        .into(viewHolder.imageView);
+                // Thêm sự kiện nhấn vào ảnh
+                viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(context, ImageViewerActivity.class);
+                        intent.putExtra("image_url", messages.getImageUrl());
+                        context.startActivity(intent);
+                    }
+                });
+            } else {
+                viewHolder.msgtxt.setVisibility(View.VISIBLE);
+                viewHolder.imageView.setVisibility(View.GONE);
+                viewHolder.msgtxt.setText(messages.getMessage());
+            }
+        } else {
+            reciverViewHolder viewHolder = (reciverViewHolder) holder;
+            viewHolder.timestamp.setText(time);
+            if (messages.getImageUrl() != null) {
+                viewHolder.msgtxt.setVisibility(View.GONE);
+                viewHolder.imageView.setVisibility(View.VISIBLE);
+                Picasso.get()
+                        .load(messages.getImageUrl())
+                        .placeholder(R.drawable.man)
+                        .error(R.drawable.man)
+                        .into(viewHolder.imageView);
+                // Thêm sự kiện nhấn vào ảnh
+                viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(context, ImageViewerActivity.class);
+                        intent.putExtra("image_url", messages.getImageUrl());
+                        context.startActivity(intent);
+                    }
+                });
+            } else {
+                viewHolder.msgtxt.setVisibility(View.VISIBLE);
+                viewHolder.imageView.setVisibility(View.GONE);
+                viewHolder.msgtxt.setText(messages.getMessage());
+                if (reciverImageUrl != null) {
+                    Picasso.get()
+                            .load(reciverImageUrl)
+                            .placeholder(R.drawable.man)
+                            .error(R.drawable.man)
+                            .resize(100, 100)
+                            .centerCrop()
+                            .into(viewHolder.circleImageView);
+                }
             }
         }
     }
@@ -81,26 +132,39 @@ public class messagesAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public long getItemId(int position) {
-        return messagesAdpterArrayList.get(position).getTimeStamp(); // ID duy nhất cho mỗi tin nhắn
+        return messagesAdpterArrayList.get(position).getTimeStamp();
+    }
+
+    private String formatTimestamp(long timestamp) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+        return sdf.format(new Date(timestamp));
     }
 
     class senderViewHolder extends RecyclerView.ViewHolder {
         TextView msgtxt;
+        TextView timestamp;
+        ImageView imageView;
 
         public senderViewHolder(@NonNull View itemView) {
             super(itemView);
             msgtxt = itemView.findViewById(R.id.msgsendertyp);
+            timestamp = itemView.findViewById(R.id.sender_timestamp);
+            imageView = itemView.findViewById(R.id.sender_image);
         }
     }
 
     class reciverViewHolder extends RecyclerView.ViewHolder {
         CircleImageView circleImageView;
         TextView msgtxt;
+        TextView timestamp;
+        ImageView imageView;
 
         public reciverViewHolder(@NonNull View itemView) {
             super(itemView);
             circleImageView = itemView.findViewById(R.id.pro);
             msgtxt = itemView.findViewById(R.id.recivertextset);
+            timestamp = itemView.findViewById(R.id.reciver_timestamp);
+            imageView = itemView.findViewById(R.id.reciver_image);
         }
     }
 }

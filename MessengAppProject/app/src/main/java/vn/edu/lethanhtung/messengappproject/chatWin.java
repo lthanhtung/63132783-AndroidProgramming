@@ -1,8 +1,11 @@
 package vn.edu.lethanhtung.messengappproject;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +24,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -34,13 +40,16 @@ public class chatWin extends AppCompatActivity {
     CircleImageView profile;
     TextView reciverNName;
     CardView sendbtn;
+    ImageButton imagePickerBtn;
     EditText textmsg;
     FirebaseAuth firebaseAuth;
     FirebaseDatabase database;
+    FirebaseStorage storage;
     String senderRoom, reciverRoom;
     RecyclerView mmessangesAdpter;
     ArrayList<msgModelclass> messagessArrayList;
     messagesAdpter messagesAdpter;
+    private static final int PICK_IMAGE_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +60,7 @@ public class chatWin extends AppCompatActivity {
         // Khởi tạo Firebase
         firebaseAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
+        storage = FirebaseStorage.getInstance();
 
         // Lấy dữ liệu từ Intent
         reciverName = getIntent().getStringExtra("nameeee");
@@ -59,6 +69,7 @@ public class chatWin extends AppCompatActivity {
 
         // Khởi tạo giao diện
         sendbtn = findViewById(R.id.sendbtnn);
+        imagePickerBtn = findViewById(R.id.image_picker_btn);
         textmsg = findViewById(R.id.textmsg);
         profile = findViewById(R.id.profileimgg);
         reciverNName = findViewById(R.id.recivername);
@@ -66,9 +77,9 @@ public class chatWin extends AppCompatActivity {
         // Tải ảnh hồ sơ và tên của người nhận
         Picasso.get()
                 .load(reciverimg)
-                .placeholder(R.drawable.man) // Thêm placeholder
-                .error(R.drawable.man) // Thêm ảnh lỗi
-                .resize(100, 100) // Resize để tối ưu
+                .placeholder(R.drawable.man)
+                .error(R.drawable.man)
+                .resize(100, 100)
                 .centerCrop()
                 .into(profile);
         reciverNName.setText(reciverName);
@@ -86,7 +97,7 @@ public class chatWin extends AppCompatActivity {
         mmessangesAdpter.setLayoutManager(linearLayoutManager);
         mmessangesAdpter.setNestedScrollingEnabled(false);
         mmessangesAdpter.setItemAnimator(null);
-        messagesAdpter = new messagesAdpter(chatWin.this, messagessArrayList, reciverimg); // Truyền reciverimg
+        messagesAdpter = new messagesAdpter(chatWin.this, messagessArrayList, reciverimg);
         mmessangesAdpter.setAdapter(messagesAdpter);
 
         // Tham chiếu tin nhắn
@@ -118,7 +129,7 @@ public class chatWin extends AppCompatActivity {
             }
         });
 
-        // Xử lý gửi tin nhắn
+        // Xử lý gửi tin nhắn văn bản
         sendbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,7 +140,7 @@ public class chatWin extends AppCompatActivity {
                 }
                 textmsg.setText("");
                 Date date = new Date();
-                msgModelclass messagess = new msgModelclass(message, SenderUID, date.getTime());
+                msgModelclass messagess = new msgModelclass(message, SenderUID, date.getTime(), null);
                 database.getReference().child("chats").child(senderRoom).child("messages").push()
                         .setValue(messagess).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -145,6 +156,60 @@ public class chatWin extends AppCompatActivity {
                                         });
                             }
                         });
+            }
+        });
+
+        // Xử lý chọn ảnh
+        imagePickerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, PICK_IMAGE_REQUEST);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri imageUri = data.getData();
+            uploadImageToFirebase(imageUri);
+        }
+    }
+
+    private void uploadImageToFirebase(Uri imageUri) {
+        StorageReference storageRef = storage.getReference().child("chat_images/" + System.currentTimeMillis() + ".jpg");
+        UploadTask uploadTask = storageRef.putFile(imageUri);
+
+        uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                if (task.isSuccessful()) {
+                    storageRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+                                String imageUrl = task.getResult().toString();
+                                Date date = new Date();
+                                msgModelclass message = new msgModelclass(null, SenderUID, date.getTime(), imageUrl);
+                                database.getReference().child("chats").child(senderRoom).child("messages").push()
+                                        .setValue(message).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                database.getReference().child("chats").child(reciverRoom).child("messages").push()
+                                                        .setValue(message);
+                                            }
+                                        });
+                            } else {
+                                Toast.makeText(chatWin.this, "Failed to get image URL", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                } else {
+                    Toast.makeText(chatWin.this, "Image upload failed", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
