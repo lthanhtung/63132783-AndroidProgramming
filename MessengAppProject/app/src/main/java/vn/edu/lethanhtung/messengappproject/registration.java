@@ -4,12 +4,17 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +22,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -39,7 +45,7 @@ public class registration extends AppCompatActivity {
     TextView loginbut;
     EditText rg_username, rg_email, rg_password, rg_repassword;
     Button rg_signup;
-    CircleImageView rg_profileImg;
+    ImageView rg_profileImg;
     FirebaseAuth auth;
     Uri imageURI;
     String imageuri;
@@ -53,6 +59,17 @@ public class registration extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_registration);
+
+        // Thêm nút quay lại
+        ImageButton backToHome = findViewById(R.id.backToHome);
+        backToHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(registration.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Establishing The Account");
@@ -69,6 +86,58 @@ public class registration extends AppCompatActivity {
         rg_repassword = findViewById(R.id.rgrepassword);
         rg_profileImg = findViewById(R.id.profilerg0);
         rg_signup = findViewById(R.id.signupbutton);
+
+        // Xử lý hiện/ẩn mật khẩu cho rg_password
+        final boolean[] isPasswordVisible = {false};
+        final Drawable eye = ContextCompat.getDrawable(this, R.drawable.eye);
+        final Drawable eyeOff = ContextCompat.getDrawable(this, R.drawable.eye_off);
+
+        // Đặt icon mặc định là eye (ẩn mật khẩu)
+        rg_password.setCompoundDrawablesWithIntrinsicBounds(null, null, eye, null);
+
+        rg_password.setOnTouchListener((v, event) -> {
+            final int DRAWABLE_RIGHT = 2;
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                if (event.getRawX() >= (rg_password.getRight() - rg_password.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                    isPasswordVisible[0] = !isPasswordVisible[0];
+                    if (isPasswordVisible[0]) {
+                        // Hiện mật khẩu và đổi icon sang eye_off
+                        rg_password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                        rg_password.setCompoundDrawablesWithIntrinsicBounds(null, null, eyeOff, null);
+                    } else {
+                        // Ẩn mật khẩu và đổi icon sang eye
+                        rg_password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        rg_password.setCompoundDrawablesWithIntrinsicBounds(null, null, eye, null);
+                    }
+                    rg_password.setSelection(rg_password.getText().length());
+                    return true;
+                }
+            }
+            return false;
+        });
+
+        // Xử lý hiện/ẩn mật khẩu cho rg_repassword
+        final boolean[] isRePasswordVisible = {false};
+        rg_repassword.setCompoundDrawablesWithIntrinsicBounds(null, null, eye, null);
+
+        rg_repassword.setOnTouchListener((v, event) -> {
+            final int DRAWABLE_RIGHT = 2;
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                if (event.getRawX() >= (rg_repassword.getRight() - rg_repassword.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                    isRePasswordVisible[0] = !isRePasswordVisible[0];
+                    if (isRePasswordVisible[0]) {
+                        rg_repassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                        rg_repassword.setCompoundDrawablesWithIntrinsicBounds(null, null, eyeOff, null);
+                    } else {
+                        rg_repassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        rg_repassword.setCompoundDrawablesWithIntrinsicBounds(null, null, eye, null);
+                    }
+                    rg_repassword.setSelection(rg_repassword.getText().length());
+                    return true;
+                }
+            }
+            return false;
+        });
 
         loginbut.setOnClickListener(v -> {
             startActivity(new Intent(registration.this, login.class));

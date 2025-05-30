@@ -5,44 +5,37 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/mainback"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:id="@+id/toolBar"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="63dp"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginStart="23dp"
+        android:layout_marginTop="@dimen/_35sdp"
         android:layout_marginEnd="25dp"
         android:background="@color/white"
         android:gravity="right"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/_12sdp">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="23dp"
+        android:layout_marginRight="25dp">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center"
             android:layout_marginStart="@dimen/_10sdp"
-            android:fontFamily="@font/poppins_bold"
+            android:layout_weight="1"
+            android:background="#EDDD49"
+            android:fontFamily="@font/poppins_black"
             android:text="@string/app_name"
-            android:textColor="@color/black"
+            android:textColor="@color/blue"
             android:textSize="@dimen/_20sdp"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/logoutimg"
-            android:layout_width="@dimen/_28sdp"
-            android:layout_height="@dimen/_28sdp"
-            android:layout_gravity="center"
-            android:background="@drawable/logout"
-            android:layout_marginRight="@dimen/_10sdp" />
+            android:textStyle="bold"
+            android:gravity="center" />
     </LinearLayout>
-
-    <!-- TextView hiển thị customUserID -->
-
     <TextView
         android:id="@+id/currentCustomIdTextView"
         android:layout_width="wrap_content"
@@ -67,39 +60,54 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mainUserRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_below="@id/searchView"
-        android:layout_above="@+id/settingBut"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="100dp" />
-
-    <ImageView
-        android:id="@+id/cambut"
-        android:layout_width="47dp"
-        android:layout_height="38dp"
+        android:layout_width="wrap_content"
+        android:layout_height="514dp"
+        android:layout_below="@id/toolBar"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginBottom="36dp"
-        android:src="@drawable/camera" />
-
-    <ImageView
-        android:layout_width="47dp"
-        android:layout_height="38dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="150dp"
-        android:layout_marginBottom="36dp"
-        android:src="@drawable/chat" />
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginRight="17dp"
+        android:layout_marginBottom="150dp" />
 
     <ImageView
         android:id="@+id/settingBut"
-        android:layout_width="47dp"
-        android:layout_height="38dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="50dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="36dp"
-        android:src="@drawable/sett" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="281dp"
+        android:layout_marginRight="281dp"
+        android:layout_marginBottom="60dp"
+        android:src="@drawable/ic_edit" />
+
+    <ImageView
+        android:id="@+id/cambut"
+        android:layout_width="69dp"
+        android:layout_height="88dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="68dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/cam" />
+
+    <ImageView
+        android:id="@+id/logoutimg"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="60dp"
+        android:src="@drawable/ic_logout" />
+
 
 </RelativeLayout>

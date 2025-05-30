@@ -24,6 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     FirebaseAuth auth;
@@ -33,10 +35,11 @@ public class MainActivity extends AppCompatActivity {
     UserAdapter adapter;
     ArrayList<Users> usersArrayList;
     ArrayList<Users> filteredList;
+    Set<String> chattedUserIds;
 
     ImageView imglogout, cambut, setbut;
     SearchView searchView;
-    TextView currentCustomIdTextView; // TextView hiển thị customUserID
+    TextView currentCustomIdTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,34 +55,23 @@ public class MainActivity extends AppCompatActivity {
         cambut = findViewById(R.id.cambut);
         setbut = findViewById(R.id.settingBut);
         searchView = findViewById(R.id.searchView);
-        currentCustomIdTextView = findViewById(R.id.currentCustomIdTextView); // ánh xạ TextView
+        currentCustomIdTextView = findViewById(R.id.currentCustomIdTextView);
         imglogout = findViewById(R.id.logoutimg);
         mainUserRecyclerView = findViewById(R.id.mainUserRecyclerView);
 
         usersArrayList = new ArrayList<>();
         filteredList = new ArrayList<>();
+        chattedUserIds = new HashSet<>();
 
         adapter = new UserAdapter(MainActivity.this, usersArrayList);
         mainUserRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mainUserRecyclerView.setAdapter(adapter);
 
-        // Lấy dữ liệu danh sách người dùng từ Firebase
-        DatabaseReference reference = database.getReference().child("user");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                usersArrayList.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Users users = dataSnapshot.getValue(Users.class);
-                    usersArrayList.add(users);
-                }
-                adapter.setFilteredList(usersArrayList); // cập nhật danh sách hiển thị
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
+        // Lấy danh sách người dùng đã nhắn tin
+        String currentUserId = auth.getCurrentUser() != null ? auth.getCurrentUser().getUid() : null;
+        if (currentUserId != null) {
+            loadChattedUsers(currentUserId);
+        }
 
         // Hiển thị customUserID người dùng hiện tại
         if (auth.getCurrentUser() != null) {
@@ -137,9 +129,10 @@ public class MainActivity extends AppCompatActivity {
         if (auth.getCurrentUser() == null) {
             Intent intent = new Intent(MainActivity.this, login.class);
             startActivity(intent);
+            finish();
         }
 
-        // Tìm kiếm theo customUserID
+        // Tìm kiếm tất cả người dùng theo customUserID
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -154,15 +147,89 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // Hàm lọc danh sách theo customUserID
-    private void filterListByCustomId(String inputText) {
-        filteredList.clear();
-        for (Users user : usersArrayList) {
-            if (user.getCustomUserID() != null &&
-                    user.getCustomUserID().toLowerCase().contains(inputText.toLowerCase())) {
-                filteredList.add(user);
+    // Hàm lấy danh sách userId của những người đã nhắn tin
+    private void loadChattedUsers(String currentUserId) {
+        DatabaseReference chatsRef = database.getReference().child("chats");
+        chatsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                chattedUserIds.clear();
+                for (DataSnapshot chatSnapshot : snapshot.getChildren()) {
+                    String chatRoomId = chatSnapshot.getKey();
+                    if (chatRoomId != null && chatRoomId.contains(currentUserId)) {
+                        String otherUserId = chatRoomId.replace(currentUserId, "");
+                        if (!otherUserId.isEmpty()) {
+                            chattedUserIds.add(otherUserId);
+                        }
+                    }
+                }
+                loadUsers();
             }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Có thể thêm thông báo lỗi nếu cần
+            }
+        });
+    }
+
+    // Hàm tải danh sách người dùng, chỉ hiển thị những người đã nhắn tin
+    private void loadUsers() {
+        DatabaseReference reference = database.getReference().child("user");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                usersArrayList.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    String userId = dataSnapshot.getKey();
+                    if (chattedUserIds.contains(userId)) {
+                        Users user = dataSnapshot.getValue(Users.class);
+                        if (user != null) {
+                            user.setUserId(userId);
+                            usersArrayList.add(user);
+                        }
+                    }
+                }
+                adapter.setFilteredList(usersArrayList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Có thể thêm thông báo lỗi nếu cần
+            }
+        });
+    }
+
+    // Hàm lọc danh sách tất cả người dùng theo customUserID
+    private void filterListByCustomId(String inputText) {
+        if (inputText.isEmpty()) {
+            // Khi input rỗng, hiển thị lại danh sách người dùng đã nhắn tin
+            adapter.setFilteredList(usersArrayList);
+        } else {
+            // Khi có input, tìm kiếm trên tất cả người dùng
+            DatabaseReference reference = database.getReference().child("user");
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    filteredList.clear();
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        Users user = dataSnapshot.getValue(Users.class);
+                        if (user != null) {
+                            user.setUserId(dataSnapshot.getKey());
+                            if (user.getCustomUserID() != null &&
+                                    user.getCustomUserID().toLowerCase().contains(inputText.toLowerCase())) {
+                                filteredList.add(user);
+                            }
+                        }
+                    }
+                    adapter.setFilteredList(filteredList);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Có thể thêm thông báo lỗi nếu cần
+                }
+            });
         }
-        adapter.setFilteredList(filteredList);
     }
 }

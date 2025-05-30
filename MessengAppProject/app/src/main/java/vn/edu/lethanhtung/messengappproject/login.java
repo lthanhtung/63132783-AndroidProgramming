@@ -2,8 +2,11 @@ package vn.edu.lethanhtung.messengappproject;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +16,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -31,8 +35,6 @@ public class login extends AppCompatActivity {
     //Tạo hộp thoại tiến trình
     android.app.ProgressDialog progressDialog;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,12 +45,40 @@ public class login extends AppCompatActivity {
         progressDialog.setMessage("Please Wait...");
         progressDialog.setCancelable(false);
 
-
         auth = FirebaseAuth.getInstance();
         button = findViewById(R.id.Logbutton);
         email = findViewById(R.id.editTextLogEmail);
         password = findViewById(R.id.editTextLogPassword);
         logsignup = findViewById(R.id.logsignup);
+
+        // Thêm chức năng hiển thị/ẩn mật khẩu
+        final boolean[] isPasswordVisible = {false};
+        final Drawable eye = ContextCompat.getDrawable(this, R.drawable.eye);
+        final Drawable eyeOff = ContextCompat.getDrawable(this, R.drawable.eye_off);
+
+        // Đặt icon mặc định là eye (ẩn mật khẩu)
+        password.setCompoundDrawablesWithIntrinsicBounds(null, null, eye, null);
+
+        password.setOnTouchListener((v, event) -> {
+            final int DRAWABLE_RIGHT = 2;
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                if (event.getRawX() >= (password.getRight() - password.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                    isPasswordVisible[0] = !isPasswordVisible[0];
+                    if (isPasswordVisible[0]) {
+                        // Hiện mật khẩu và đổi icon sang eye_off
+                        password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                        password.setCompoundDrawablesWithIntrinsicBounds(null, null, eyeOff, null);
+                    } else {
+                        // Ẩn mật khẩu và đổi icon sang eye
+                        password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        password.setCompoundDrawablesWithIntrinsicBounds(null, null, eye, null);
+                    }
+                    password.setSelection(password.getText().length());
+                    return true;
+                }
+            }
+            return false;
+        });
 
         logsignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,10 +128,8 @@ public class login extends AppCompatActivity {
                             }
                         }
                     });
-
                 }
             }
         });
-
     }
 }

@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="blue">#3088B1</color>
+    <color name="chat_bg">#F5F3FF</color>         <!-- Nền tím nhạt -->
+    <color name="bubble_send">#000000</color>     <!-- Bubble gửi: đen -->
+    <color name="bubble_receive">#E9D7FE</color>  <!-- Bubble nhận: tím nhạt -->
+    <color name="bubble_receive2">#D1FAE5</color> <!-- Bubble nhận: xanh nhạt -->
+    <color name="input_bg">#E9D7FE</color>        <!-- Nền input: tím nhạt -->
+
 </resources>

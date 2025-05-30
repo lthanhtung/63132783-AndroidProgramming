@@ -1,11 +1,15 @@
 package vn.edu.lethanhtung.messengappproject;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +61,17 @@ public class chatWin extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_chat_win);
 
+        // Thêm nút quay lại
+        ImageButton backToHome = findViewById(R.id.backToHome);
+        backToHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(chatWin.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         // Khởi tạo Firebase
         firebaseAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
@@ -107,19 +122,17 @@ public class chatWin extends AppCompatActivity {
         chatreference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                int oldSize = messagessArrayList.size();
                 ArrayList<msgModelclass> newMessages = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     msgModelclass message = dataSnapshot.getValue(msgModelclass.class);
+                    message.setMessageId(dataSnapshot.getKey());
                     newMessages.add(message);
                 }
-                if (newMessages.size() != oldSize) {
-                    messagessArrayList.clear();
-                    messagessArrayList.addAll(newMessages);
-                    messagesAdpter.notifyDataSetChanged();
-                    if (!messagessArrayList.isEmpty()) {
-                        mmessangesAdpter.scrollToPosition(messagessArrayList.size() - 1);
-                    }
+                messagessArrayList.clear();
+                messagessArrayList.addAll(newMessages);
+                messagesAdpter.notifyDataSetChanged();
+                if (!messagessArrayList.isEmpty()) {
+                    mmessangesAdpter.scrollToPosition(messagessArrayList.size() - 1);
                 }
             }
 
@@ -140,12 +153,14 @@ public class chatWin extends AppCompatActivity {
                 }
                 textmsg.setText("");
                 Date date = new Date();
+                String key = database.getReference().child("chats").child(senderRoom).child("messages").push().getKey();
                 msgModelclass messagess = new msgModelclass(message, SenderUID, date.getTime(), null);
-                database.getReference().child("chats").child(senderRoom).child("messages").push()
+                messagess.setMessageId(key);
+                database.getReference().child("chats").child(senderRoom).child("messages").child(key)
                         .setValue(messagess).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                database.getReference().child("chats").child(reciverRoom).child("messages").push()
+                                database.getReference().child("chats").child(reciverRoom).child("messages").child(key)
                                         .setValue(messagess).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
@@ -177,6 +192,53 @@ public class chatWin extends AppCompatActivity {
             Uri imageUri = data.getData();
             uploadImageToFirebase(imageUri);
         }
+    }
+
+    public void showEditMessageDialog(msgModelclass message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.dialog_edit_message, null);
+        EditText input = view.findViewById(R.id.edit_message);
+        input.setText(message.getMessage());
+        builder.setView(view);
+        AlertDialog dialog = builder.create();
+
+        view.findViewById(R.id.btn_save).setOnClickListener(v -> {
+            String newText = input.getText().toString().trim();
+            if (!newText.isEmpty()) {
+                updateMessageInFirebase(message, newText);
+                dialog.dismiss();
+            }
+        });
+        view.findViewById(R.id.btn_cancel).setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+    }
+
+    private void updateMessageInFirebase(msgModelclass message, String newText) {
+        DatabaseReference senderRef = database.getReference()
+                .child("chats").child(senderRoom).child("messages").child(message.getMessageId());
+        DatabaseReference reciverRef = database.getReference()
+                .child("chats").child(reciverRoom).child("messages").child(message.getMessageId());
+
+        senderRef.child("message").setValue(newText);
+        reciverRef.child("message").setValue(newText);
+    }
+
+    public void showMessageOptionsDialog(msgModelclass message, View anchor) {
+        PopupMenu popup = new PopupMenu(this, anchor);
+        popup.getMenuInflater().inflate(R.menu.menu_message_options, popup.getMenu());
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.menu_edit) {
+                    showEditMessageDialog(message);
+                    return true;
+                }
+                // Xử lý xóa nếu cần
+                return false;
+            }
+        });
+        popup.show();
     }
 
     private void uploadImageToFirebase(Uri imageUri) {

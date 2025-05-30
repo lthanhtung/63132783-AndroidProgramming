@@ -10,7 +10,8 @@ public class Users {
     String lastMessage;
     String status;
 
-    public Users() {}
+    public Users() {
+    }
 
     public Users(String userId, String customUserID, String userName, String mail, String password, String profilepic, String status) {
         this.userId = userId;

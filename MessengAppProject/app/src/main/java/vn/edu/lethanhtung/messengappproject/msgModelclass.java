@@ -5,6 +5,7 @@ public class msgModelclass {
     String senderid;
     long timeStamp;
     String imageUrl;
+    String messageId;
 
     public msgModelclass() {
     }
@@ -14,6 +15,14 @@ public class msgModelclass {
         this.senderid = senderid;
         this.timeStamp = timeStamp;
         this.imageUrl = imageUrl;
+    }
+
+    public String getMessageId() {
+        return messageId;
+    }
+
+    public void setMessageId(String messageId) {
+        this.messageId = messageId;
     }
 
     public String getMessage() {

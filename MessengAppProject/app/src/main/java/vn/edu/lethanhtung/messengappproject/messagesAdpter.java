@@ -77,6 +77,16 @@ public class messagesAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 viewHolder.msgtxt.setVisibility(View.VISIBLE);
                 viewHolder.imageView.setVisibility(View.GONE);
                 viewHolder.msgtxt.setText(messages.getMessage());
+                // Thêm sự kiện nhấn và giữ cho tin nhắn văn bản
+                viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        if (context instanceof chatWin) {
+                            ((chatWin) context).showMessageOptionsDialog(messagesAdpterArrayList.get(position), v);
+                        }
+                        return true;
+                    }
+                });
             }
         } else {
             reciverViewHolder viewHolder = (reciverViewHolder) holder;
