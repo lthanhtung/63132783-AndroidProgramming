@@ -10,7 +10,6 @@
 
     <style name="Theme.MessengAppProject" parent="Base.Theme.MessengAppProject" />
     <style name="dialoge">
-        <item name="android:windowBackground">@drawable/empty_background</item>
         <item name="windowNoTitle">true</item>
         <item name="windowMinWidthMajor">80%</item>
         <item name="windowActionBar">false</item>

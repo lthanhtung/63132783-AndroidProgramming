@@ -17,9 +17,6 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,8 +28,8 @@ public class login extends AppCompatActivity {
     Button button;
     EditText email, password;
     FirebaseAuth auth;
-    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"; //Mẫu Email quy định cho trường Email
-    //Tạo hộp thoại tiến trình
+    TextView tvForgotPassword;
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     android.app.ProgressDialog progressDialog;
 
     @Override
@@ -50,13 +47,35 @@ public class login extends AppCompatActivity {
         email = findViewById(R.id.editTextLogEmail);
         password = findViewById(R.id.editTextLogPassword);
         logsignup = findViewById(R.id.logsignup);
+        tvForgotPassword = findViewById(R.id.tvForgotPassword);
 
-        // Thêm chức năng hiển thị/ẩn mật khẩu
+        // Xử lý quên mật khẩu
+        tvForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String emailAddress = email.getText().toString().trim();
+                if (TextUtils.isEmpty(emailAddress)) {
+                    Toast.makeText(login.this, "Vui lòng nhập email để lấy lại mật khẩu", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                FirebaseAuth.getInstance().sendPasswordResetEmail(emailAddress)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(login.this, "Đã gửi email đặt lại mật khẩu!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(login.this, "Lỗi: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+            }
+        });
+
         final boolean[] isPasswordVisible = {false};
         final Drawable eye = ContextCompat.getDrawable(this, R.drawable.eye);
         final Drawable eyeOff = ContextCompat.getDrawable(this, R.drawable.eye_off);
 
-        // Đặt icon mặc định là eye (ẩn mật khẩu)
         password.setCompoundDrawablesWithIntrinsicBounds(null, null, eye, null);
 
         password.setOnTouchListener((v, event) -> {
@@ -65,11 +84,9 @@ public class login extends AppCompatActivity {
                 if (event.getRawX() >= (password.getRight() - password.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                     isPasswordVisible[0] = !isPasswordVisible[0];
                     if (isPasswordVisible[0]) {
-                        // Hiện mật khẩu và đổi icon sang eye_off
                         password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                         password.setCompoundDrawablesWithIntrinsicBounds(null, null, eyeOff, null);
                     } else {
-                        // Ẩn mật khẩu và đổi icon sang eye
                         password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                         password.setCompoundDrawablesWithIntrinsicBounds(null, null, eye, null);
                     }
@@ -95,35 +112,33 @@ public class login extends AppCompatActivity {
                 String Email = email.getText().toString();
                 String pass = password.getText().toString();
 
-                //Kiểm tra trường Email hoặc password
-                if ((TextUtils.isEmpty(Email))){     //Email trống
+                if (TextUtils.isEmpty(Email)) {
                     progressDialog.dismiss();
                     Toast.makeText(login.this, "Enter The Email", Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.isEmpty(pass)) {     //Password trống
+                } else if (TextUtils.isEmpty(pass)) {
                     progressDialog.dismiss();
                     Toast.makeText(login.this, "Enter The Password", Toast.LENGTH_SHORT).show();
-                } else if (!Email.matches(emailPattern)) {       //Email sai định dạng
+                } else if (!Email.matches(emailPattern)) {
                     progressDialog.dismiss();
                     email.setError("Give Proper Email Address");
-                } else if (password.length() < 6) {  //Quy định số lượng ký tự password > 6
+                } else if (password.length() < 6) {
                     progressDialog.dismiss();
                     password.setError("More Than Six Characters");
                     Toast.makeText(login.this, "Password Needs To Be Longer Then Six Characters", Toast.LENGTH_SHORT).show();
-                }else{
-                    //Kiểm tra dữ liệu trên csdl FireBase     // Đăng nhập bằng Email và Password
-                    auth.signInWithEmailAndPassword(Email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                } else {
+                    auth.signInWithEmailAndPassword(Email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 progressDialog.show();
                                 try {
                                     Intent intent = new Intent(login.this, MainActivity.class);
                                     startActivity(intent);
                                     finish();
-                                }catch (Exception e){
+                                } catch (Exception e) {
                                     Toast.makeText(login.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
-                            }else {
+                            } else {
                                 Toast.makeText(login.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
