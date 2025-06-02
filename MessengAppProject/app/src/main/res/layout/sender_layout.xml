@@ -1,47 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/_10sdp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
+    <!-- "Đã chỉnh sửa" -->
     <TextView
-        android:id="@+id/msgsendertyp"
+        android:id="@+id/tv_edited"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="@dimen/_1sdp"
         android:layout_marginTop="@dimen/_5sdp"
-        android:layout_marginEnd="@dimen/_1sdp"
-        android:background="@drawable/sender_shape"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:text="Đã chỉnh sửa"
+        android:textSize="11sp"
+        android:textColor="#FFB433"
         android:fontFamily="@font/poppins_regular"
-        android:padding="@dimen/_7sdp"
-        android:text="Lê Thanh Tùng"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textSize="14sp"
         android:visibility="gone" />
 
-    <ImageView
-        android:id="@+id/sender_image"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_below="@id/msgsendertyp"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="@dimen/_5sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:layout_marginEnd="@dimen/_1sdp"
-        android:visibility="gone"
-        android:scaleType="centerCrop" />
+    <!-- Container cho văn bản và hình ảnh tin nhắn -->
+    <LinearLayout
+        android:id="@+id/message_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_edited"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="@dimen/_1sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:orientation="vertical">
 
+        <!-- Văn bản tin nhắn -->
+        <TextView
+            android:id="@+id/msgsendertyp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:background="@drawable/sender_shape"
+            android:fontFamily="@font/poppins_regular"
+            android:padding="@dimen/_7sdp"
+            android:text="Tin nhắn gửi"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+
+        <!-- Hình ảnh tin nhắn -->
+        <ImageView
+            android:id="@+id/sender_image"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:visibility="gone"
+            android:scaleType="centerCrop" />
+
+        <!-- Icon cảm xúc -->
+        <ImageView
+            android:id="@+id/reaction_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="-8dp"
+            android:layout_marginEnd="12dp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <!-- Thời gian tin nhắn -->
     <TextView
         android:id="@+id/sender_timestamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/sender_image"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_below="@id/message_container"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/_2sdp"
-        android:layout_marginEnd="@dimen/_1sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_5sdp"
         android:textSize="12sp"
         android:textColor="@color/black"

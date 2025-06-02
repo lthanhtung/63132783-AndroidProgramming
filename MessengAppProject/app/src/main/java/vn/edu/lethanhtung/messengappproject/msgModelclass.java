@@ -6,6 +6,8 @@ public class msgModelclass {
     long timeStamp;
     String imageUrl;
     String messageId;
+    String reaction;
+    boolean isEdited;
 
     public msgModelclass() {
     }
@@ -15,6 +17,7 @@ public class msgModelclass {
         this.senderid = senderid;
         this.timeStamp = timeStamp;
         this.imageUrl = imageUrl;
+        this.isEdited = false;
     }
 
     public String getMessageId() {
@@ -55,5 +58,21 @@ public class msgModelclass {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getReaction() {
+        return reaction;
+    }
+
+    public void setReaction(String reaction) {
+        this.reaction = reaction;
+    }
+
+    public boolean isEdited() {
+        return isEdited;
+    }
+
+    public void setEdited(boolean edited) {
+        isEdited = edited;
     }
 }

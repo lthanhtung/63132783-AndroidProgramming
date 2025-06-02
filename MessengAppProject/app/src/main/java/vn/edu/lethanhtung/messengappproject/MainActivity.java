@@ -83,15 +83,15 @@ public class MainActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     Users currentUser = snapshot.getValue(Users.class);
                     if (currentUser != null && currentUser.getCustomUserID() != null) {
-                        currentCustomIdTextView.setText("Mã khách hàng: " + currentUser.getCustomUserID());
+                        currentCustomIdTextView.setText("User ID: " + currentUser.getCustomUserID());
                     } else {
-                        currentCustomIdTextView.setText("Mã khách hàng: (Không có)");
+                        currentCustomIdTextView.setText("User ID: (Không có)");
                     }
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    currentCustomIdTextView.setText("Mã khách hàng: (Lỗi)");
+                    currentCustomIdTextView.setText("User ID: (Lỗi)");
                 }
             });
         }

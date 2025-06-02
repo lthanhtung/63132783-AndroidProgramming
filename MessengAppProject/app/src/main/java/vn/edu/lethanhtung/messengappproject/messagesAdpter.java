@@ -56,6 +56,14 @@ public class messagesAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         if (holder instanceof senderViewHolder) {
             senderViewHolder viewHolder = (senderViewHolder) holder;
             viewHolder.timestamp.setText(time);
+
+            // Hiển thị thông báo đã chỉnh sửa
+            if (messages.isEdited()) {
+                viewHolder.tvEdited.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.tvEdited.setVisibility(View.GONE);
+            }
+
             if (messages.getImageUrl() != null) {
                 viewHolder.msgtxt.setVisibility(View.GONE);
                 viewHolder.imageView.setVisibility(View.VISIBLE);
@@ -64,7 +72,7 @@ public class messagesAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         .placeholder(R.drawable.man)
                         .error(R.drawable.man)
                         .into(viewHolder.imageView);
-                // Thêm sự kiện nhấn vào ảnh
+
                 viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -77,8 +85,8 @@ public class messagesAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 viewHolder.msgtxt.setVisibility(View.VISIBLE);
                 viewHolder.imageView.setVisibility(View.GONE);
                 viewHolder.msgtxt.setText(messages.getMessage());
-                // Thêm sự kiện nhấn và giữ cho tin nhắn văn bản
-                viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+
+                viewHolder.msgtxt.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
                         if (context instanceof chatWin) {
@@ -87,10 +95,48 @@ public class messagesAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         return true;
                     }
                 });
+
+                viewHolder.msgtxt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (context instanceof chatWin) {
+                            ((chatWin) context).showReactionPopup(v, messages, position);
+                        }
+                    }
+                });
+
+                // Hiển thị icon cảm xúc nếu có
+                if (messages.getReaction() != null && !messages.getReaction().isEmpty()) {
+                    int resId = 0;
+                    switch (messages.getReaction()) {
+                        case "like": resId = R.drawable.ic_like; break;
+                        case "love": resId = R.drawable.ic_love; break;
+                        case "haha": resId = R.drawable.ic_haha; break;
+                        case "wow": resId = R.drawable.ic_wow; break;
+                        case "sad": resId = R.drawable.ic_sad; break;
+                        case "angry": resId = R.drawable.ic_angry; break;
+                    }
+                    if (resId != 0) {
+                        viewHolder.reactionIcon.setImageResource(resId);
+                        viewHolder.reactionIcon.setVisibility(View.VISIBLE);
+                    } else {
+                        viewHolder.reactionIcon.setVisibility(View.GONE);
+                    }
+                } else {
+                    viewHolder.reactionIcon.setVisibility(View.GONE);
+                }
             }
         } else {
             reciverViewHolder viewHolder = (reciverViewHolder) holder;
             viewHolder.timestamp.setText(time);
+
+            // Hiển thị thông báo đã chỉnh sửa
+            if (messages.isEdited()) {
+                viewHolder.tvEdited.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.tvEdited.setVisibility(View.GONE);
+            }
+
             if (messages.getImageUrl() != null) {
                 viewHolder.msgtxt.setVisibility(View.GONE);
                 viewHolder.imageView.setVisibility(View.VISIBLE);
@@ -99,7 +145,7 @@ public class messagesAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         .placeholder(R.drawable.man)
                         .error(R.drawable.man)
                         .into(viewHolder.imageView);
-                // Thêm sự kiện nhấn vào ảnh
+
                 viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -112,6 +158,7 @@ public class messagesAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 viewHolder.msgtxt.setVisibility(View.VISIBLE);
                 viewHolder.imageView.setVisibility(View.GONE);
                 viewHolder.msgtxt.setText(messages.getMessage());
+
                 if (reciverImageUrl != null) {
                     Picasso.get()
                             .load(reciverImageUrl)
@@ -120,6 +167,46 @@ public class messagesAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                             .resize(100, 100)
                             .centerCrop()
                             .into(viewHolder.circleImageView);
+                }
+
+                viewHolder.msgtxt.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        if (context instanceof chatWin) {
+                            ((chatWin) context).showMessageOptionsDialog(messagesAdpterArrayList.get(position), v);
+                        }
+                        return true;
+                    }
+                });
+
+                viewHolder.msgtxt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (context instanceof chatWin) {
+                            ((chatWin) context).showReactionPopup(v, messages, position);
+                        }
+                    }
+                });
+
+                // Hiển thị icon cảm xúc nếu có
+                if (messages.getReaction() != null && !messages.getReaction().isEmpty()) {
+                    int resId = 0;
+                    switch (messages.getReaction()) {
+                        case "like": resId = R.drawable.ic_like; break;
+                        case "love": resId = R.drawable.ic_love; break;
+                        case "haha": resId = R.drawable.ic_haha; break;
+                        case "wow": resId = R.drawable.ic_wow; break;
+                        case "sad": resId = R.drawable.ic_sad; break;
+                        case "angry": resId = R.drawable.ic_angry; break;
+                    }
+                    if (resId != 0) {
+                        viewHolder.reactionIcon.setImageResource(resId);
+                        viewHolder.reactionIcon.setVisibility(View.VISIBLE);
+                    } else {
+                        viewHolder.reactionIcon.setVisibility(View.GONE);
+                    }
+                } else {
+                    viewHolder.reactionIcon.setVisibility(View.GONE);
                 }
             }
         }
@@ -154,12 +241,16 @@ public class messagesAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         TextView msgtxt;
         TextView timestamp;
         ImageView imageView;
+        TextView tvEdited;
+        ImageView reactionIcon;
 
         public senderViewHolder(@NonNull View itemView) {
             super(itemView);
             msgtxt = itemView.findViewById(R.id.msgsendertyp);
             timestamp = itemView.findViewById(R.id.sender_timestamp);
             imageView = itemView.findViewById(R.id.sender_image);
+            tvEdited = itemView.findViewById(R.id.tv_edited);
+            reactionIcon = itemView.findViewById(R.id.reaction_icon);
         }
     }
 
@@ -168,6 +259,8 @@ public class messagesAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         TextView msgtxt;
         TextView timestamp;
         ImageView imageView;
+        TextView tvEdited;
+        ImageView reactionIcon;
 
         public reciverViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -175,6 +268,8 @@ public class messagesAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             msgtxt = itemView.findViewById(R.id.recivertextset);
             timestamp = itemView.findViewById(R.id.reciver_timestamp);
             imageView = itemView.findViewById(R.id.reciver_image);
+            tvEdited = itemView.findViewById(R.id.tv_edited);
+            reactionIcon = itemView.findViewById(R.id.reaction_icon);
         }
     }
 }

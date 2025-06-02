@@ -5,11 +5,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +38,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -53,6 +58,7 @@ public class chatWin extends AppCompatActivity {
     RecyclerView mmessangesAdpter;
     ArrayList<msgModelclass> messagessArrayList;
     messagesAdpter messagesAdpter;
+    PopupWindow reactionPopupWindow = null;
     private static final int PICK_IMAGE_REQUEST = 1;
 
     @Override
@@ -61,7 +67,6 @@ public class chatWin extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_chat_win);
 
-        // Thêm nút quay lại
         ImageButton backToHome = findViewById(R.id.backToHome);
         backToHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,24 +77,20 @@ public class chatWin extends AppCompatActivity {
             }
         });
 
-        // Khởi tạo Firebase
         firebaseAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
 
-        // Lấy dữ liệu từ Intent
         reciverName = getIntent().getStringExtra("nameeee");
         reciverimg = getIntent().getStringExtra("reciverImg");
         reciverUid = getIntent().getStringExtra("uid");
 
-        // Khởi tạo giao diện
         sendbtn = findViewById(R.id.sendbtnn);
         imagePickerBtn = findViewById(R.id.image_picker_btn);
         textmsg = findViewById(R.id.textmsg);
         profile = findViewById(R.id.profileimgg);
         reciverNName = findViewById(R.id.recivername);
 
-        // Tải ảnh hồ sơ và tên của người nhận
         Picasso.get()
                 .load(reciverimg)
                 .placeholder(R.drawable.man)
@@ -99,12 +100,10 @@ public class chatWin extends AppCompatActivity {
                 .into(profile);
         reciverNName.setText(reciverName);
 
-        // Thiết lập phòng chat
         SenderUID = firebaseAuth.getUid();
         senderRoom = SenderUID + reciverUid;
         reciverRoom = reciverUid + SenderUID;
 
-        // Khởi tạo RecyclerView và Adapter
         mmessangesAdpter = findViewById(R.id.msgadpter);
         messagessArrayList = new ArrayList<>();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -115,17 +114,20 @@ public class chatWin extends AppCompatActivity {
         messagesAdpter = new messagesAdpter(chatWin.this, messagessArrayList, reciverimg);
         mmessangesAdpter.setAdapter(messagesAdpter);
 
-        // Tham chiếu tin nhắn
         DatabaseReference chatreference = database.getReference().child("chats").child(senderRoom).child("messages");
 
-        // Lắng nghe tin nhắn
         chatreference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int oldSize = messagessArrayList.size();
                 ArrayList<msgModelclass> newMessages = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     msgModelclass message = dataSnapshot.getValue(msgModelclass.class);
                     message.setMessageId(dataSnapshot.getKey());
+                    String reaction = dataSnapshot.child("reaction").getValue(String.class);
+                    message.setReaction(reaction != null ? reaction : "");
+                    Boolean isEdited = dataSnapshot.child("isEdited").getValue(Boolean.class);
+                    message.setEdited(isEdited != null ? isEdited : false);
                     newMessages.add(message);
                 }
                 messagessArrayList.clear();
@@ -142,7 +144,6 @@ public class chatWin extends AppCompatActivity {
             }
         });
 
-        // Xử lý gửi tin nhắn văn bản
         sendbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,6 +157,7 @@ public class chatWin extends AppCompatActivity {
                 String key = database.getReference().child("chats").child(senderRoom).child("messages").push().getKey();
                 msgModelclass messagess = new msgModelclass(message, SenderUID, date.getTime(), null);
                 messagess.setMessageId(key);
+                messagess.setEdited(false);
                 database.getReference().child("chats").child(senderRoom).child("messages").child(key)
                         .setValue(messagess).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -174,7 +176,6 @@ public class chatWin extends AppCompatActivity {
             }
         });
 
-        // Xử lý chọn ảnh
         imagePickerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -220,8 +221,24 @@ public class chatWin extends AppCompatActivity {
         DatabaseReference reciverRef = database.getReference()
                 .child("chats").child(reciverRoom).child("messages").child(message.getMessageId());
 
-        senderRef.child("message").setValue(newText);
-        reciverRef.child("message").setValue(newText);
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("message", newText);
+        updates.put("isEdited", true);
+
+        senderRef.updateChildren(updates).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                reciverRef.updateChildren(updates).addOnCompleteListener(task2 -> {
+                    if (task2.isSuccessful()) {
+                        message.setMessage(newText);
+                        message.setEdited(true);
+                        int position = messagessArrayList.indexOf(message);
+                        if (position != -1) {
+                            messagesAdpter.notifyItemChanged(position);
+                        }
+                    }
+                });
+            }
+        });
     }
 
     public void showMessageOptionsDialog(msgModelclass message, View anchor) {
@@ -233,8 +250,10 @@ public class chatWin extends AppCompatActivity {
                 if (item.getItemId() == R.id.menu_edit) {
                     showEditMessageDialog(message);
                     return true;
+                } else if (item.getItemId() == R.id.menu_delete) {
+                    showDeleteConfirmationDialog(message);
+                    return true;
                 }
-                // Xử lý xóa nếu cần
                 return false;
             }
         });
@@ -274,5 +293,108 @@ public class chatWin extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void deleteMessage(msgModelclass message) {
+        DatabaseReference senderRef = database.getReference()
+                .child("chats").child(senderRoom).child("messages").child(message.getMessageId());
+        DatabaseReference reciverRef = database.getReference()
+                .child("chats").child(reciverRoom).child("messages").child(message.getMessageId());
+
+        senderRef.removeValue().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                reciverRef.removeValue().addOnCompleteListener(task2 -> {
+                    if (task2.isSuccessful()) {
+                        int position = messagessArrayList.indexOf(message);
+                        if (position != -1) {
+                            messagessArrayList.remove(position);
+                            messagesAdpter.notifyItemRemoved(position);
+                        }
+                        Toast.makeText(chatWin.this, "Đã xóa tin nhắn", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+    }
+
+    private void showDeleteConfirmationDialog(msgModelclass message) {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("Xóa tin nhắn")
+                .setMessage("Bạn có chắc chắn muốn xóa tin nhắn này?")
+                .setPositiveButton("Xóa", (d, which) -> deleteMessage(message))
+                .setNegativeButton("Hủy", null)
+                .show();
+
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                .setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                .setTextColor(getResources().getColor(android.R.color.holo_blue_dark));
+    }
+
+    public void showReactionPopup(View anchor, msgModelclass message, int position) {
+        if (reactionPopupWindow != null && reactionPopupWindow.isShowing()) {
+            reactionPopupWindow.dismiss();
+            reactionPopupWindow = null;
+            return;
+        }
+
+        View popupView = LayoutInflater.from(this).inflate(R.layout.layout_reaction_popup, null);
+        reactionPopupWindow = new PopupWindow(popupView,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                false);
+
+        popupView.findViewById(R.id.reaction_like).setOnClickListener(v -> {
+            updateReaction(message, "like", position);
+            reactionPopupWindow.dismiss();
+            reactionPopupWindow = null;
+        });
+        popupView.findViewById(R.id.reaction_love).setOnClickListener(v -> {
+            updateReaction(message, "love", position);
+            reactionPopupWindow.dismiss();
+            reactionPopupWindow = null;
+        });
+        popupView.findViewById(R.id.reaction_haha).setOnClickListener(v -> {
+            updateReaction(message, "haha", position);
+            reactionPopupWindow.dismiss();
+            reactionPopupWindow = null;
+        });
+        popupView.findViewById(R.id.reaction_wow).setOnClickListener(v -> {
+            updateReaction(message, "wow", position);
+            reactionPopupWindow.dismiss();
+            reactionPopupWindow = null;
+        });
+        popupView.findViewById(R.id.reaction_sad).setOnClickListener(v -> {
+            updateReaction(message, "sad", position);
+            reactionPopupWindow.dismiss();
+            reactionPopupWindow = null;
+        });
+        popupView.findViewById(R.id.reaction_angry).setOnClickListener(v -> {
+            updateReaction(message, "angry", position);
+            reactionPopupWindow.dismiss();
+            reactionPopupWindow = null;
+        });
+
+        reactionPopupWindow.setOutsideTouchable(true);
+        reactionPopupWindow.setFocusable(false);
+        reactionPopupWindow.setOnDismissListener(() -> reactionPopupWindow = null);
+
+        reactionPopupWindow.showAsDropDown(anchor, 0, -anchor.getHeight() - 16);
+    }
+
+    private void updateReaction(msgModelclass message, String reaction, int position) {
+        DatabaseReference senderRef = database.getReference()
+                .child("chats").child(senderRoom).child("messages").child(message.getMessageId());
+        DatabaseReference reciverRef = database.getReference()
+                .child("chats").child(reciverRoom).child("messages").child(message.getMessageId());
+
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("reaction", reaction);
+
+        senderRef.updateChildren(updates);
+        reciverRef.updateChildren(updates);
+
+        message.setReaction(reaction);
+        messagesAdpter.notifyItemChanged(position);
     }
 }
