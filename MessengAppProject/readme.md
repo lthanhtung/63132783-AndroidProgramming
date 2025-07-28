@@ -12,7 +12,7 @@
 ## Tính năng chính
 - Gửi và nhận tin nhắn theo thời gian thực
 - Hiển thị lịch sử trò chuyện
-- Đồng bộ dữ liệu với Firebase
+- Cập nhập thông tin và trạng thái người dùng
 
 ## 📸 Một số hình ảnh giao diện
 <h3> Giao diện đăng nhập và đăng ký</h3>
