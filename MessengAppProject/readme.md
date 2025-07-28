@@ -10,10 +10,13 @@
 | XML (Android)  | Java       | Firebase Realtime Database      |
 
 ## 📸 Một số hình ảnh giao diện
-###  Giao diện đăng nhập và đăng ký
-| Đăng nhập | Đăng ký |
-|-----------|---------|
-| ![Đăng nhập](https://github.com/user-attachments/assets/1c8a4faf-4124-4d10-804f-2c36986b7bf1) | ![Đăng ký](https://github.com/user-attachments/assets/640c9aeb-5e74-44ec-8756-cea7f40347fd) |
+<h3>🔐 Giao diện đăng nhập và đăng ký</h3>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/1c8a4faf-4124-4d10-804f-2c36986b7bf1" width="300" alt="Đăng nhập"/>
+  <img src="https://github.com/user-attachments/assets/640c9aeb-5e74-44ec-8756-cea7f40347fd" width="300" alt="Đăng ký"/>
+</p>
+
 
 - **Giao diện chính**
 <img width="516" alt="image" src="https://github.com/user-attachments/assets/4c853c78-c102-446f-a9f6-c822c75a7306" />
