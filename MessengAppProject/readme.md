@@ -12,8 +12,7 @@
 ## 📸 Một số hình ảnh giao diện
 ### Đăng nhập / Đăng ký
 - **Giao diện đăng nhập và đăng ký**  
-<img width="516" alt="image" src="https://github.com/user-attachments/assets/1c8a4faf-4124-4d10-804f-2c36986b7bf1" />
-<img width="516" alt="image" src="https://github.com/user-attachments/assets/640c9aeb-5e74-44ec-8756-cea7f40347fd" />
+<img width="516" alt="image" src="https://github.com/user-attachments/assets/1c8a4faf-4124-4d10-804f-2c36986b7bf1" /><img width="516" alt="image" src="https://github.com/user-attachments/assets/640c9aeb-5e74-44ec-8756-cea7f40347fd" />
 
 - **Giao diện chính**
 <img width="516" alt="image" src="https://github.com/user-attachments/assets/4c853c78-c102-446f-a9f6-c822c75a7306" />
