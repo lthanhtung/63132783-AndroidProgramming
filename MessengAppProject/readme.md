@@ -9,6 +9,11 @@
 |----------------|------------|---------------------------------|
 | XML (Android)  | Java       | Firebase Realtime Database      |
 
+## Tính năng chính
+- Gửi và nhận tin nhắn theo thời gian thực
+- Hiển thị lịch sử trò chuyện
+- Đồng bộ dữ liệu với Firebase
+
 ## 📸 Một số hình ảnh giao diện
 <h3> Giao diện đăng nhập và đăng ký</h3>
 
@@ -27,6 +32,7 @@
 </p>
 
 <h3> 💬 Màn hình chat chính</h3>
+
 <p align="center">
   <img width="300" alt="Màn hình chat chính" src="https://github.com/user-attachments/assets/8525cdae-9d0b-4a22-98dd-ac350fbc3cc7" />
 </p>
