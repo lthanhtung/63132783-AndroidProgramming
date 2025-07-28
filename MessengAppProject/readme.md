@@ -26,7 +26,10 @@
   <img width="300" alt=" cập nhập thông tin người dùng" src="https://github.com/user-attachments/assets/9ae40fbf-6eed-4aa9-beca-78f3681bb75e" />
 </p>
 
-### 💬 Màn hình chat chính
+<h3> 💬 Màn hình chat chính</h3>
+<p align="center">
+  <img width="300" alt="Màn hình chat chính" src="https://github.com/user-attachments/assets/8525cdae-9d0b-4a22-98dd-ac350fbc3cc7" />
+</p>
 
 
 
